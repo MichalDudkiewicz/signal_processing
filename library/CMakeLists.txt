@@ -8,6 +8,7 @@ add_library(library
         include/signal_sampler.hpp
         src/uniform_distribution_noise.cpp
         src/gaussian_noise.cpp
+        src/sinusoidal_signal.cpp
         )
 
 target_include_directories(library PUBLIC include)
