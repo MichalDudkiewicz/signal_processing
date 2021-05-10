@@ -3,10 +3,10 @@
 
 #include <vector>
 
-#include "signal.hpp"
-
 namespace cps {
-    struct SampledSignal
+    class Signal;
+
+    struct SignalData
     {
         std::vector<double> x;
         std::vector<double> y;
@@ -16,7 +16,7 @@ namespace cps {
     public:
         explicit SignalSampler(int samplingFrequency);
 
-        SampledSignal sample(const Signal& signal) const;
+        SignalData sample(const Signal& signal) const;
 
     private:
         int mSamplingFrequency;

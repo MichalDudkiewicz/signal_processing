@@ -1,4 +1,5 @@
 #include "signal.hpp"
+#include "signal_sampler.hpp"
 
 namespace cps {
 
@@ -13,5 +14,11 @@ namespace cps {
 
     int Signal::initialTime() const {
         return mInitialTimeSec;
+    }
+
+    SignalData Signal::data(int samplingFrequency) const
+    {
+        SignalSampler signalSampler(samplingFrequency);
+        return signalSampler.sample(*this);
     }
 }

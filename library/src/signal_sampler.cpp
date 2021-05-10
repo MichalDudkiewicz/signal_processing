@@ -1,4 +1,5 @@
 #include "signal_sampler.hpp"
+#include "signal.hpp"
 
 namespace cps {
 
@@ -7,12 +8,12 @@ namespace cps {
 
     }
 
-    SampledSignal SignalSampler::sample(const Signal &signal) const {
+    SignalData SignalSampler::sample(const Signal &signal) const {
         double x = signal.initialTime();
         const double xEnd = x + signal.duration();
         const int samplesNumber = signal.duration() * mSamplingFrequency;
         const double sampleDeltaTime = (double)signal.duration() / (double)samplesNumber;
-        SampledSignal sampledSignal;
+        SignalData sampledSignal;
         while (x <= xEnd)
         {
             sampledSignal.x.push_back(x);
