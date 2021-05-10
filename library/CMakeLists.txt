@@ -12,6 +12,7 @@ add_library(library
         src/half_rectified_sinusoidal_signal.cpp
         src/rectified_sinusoidal_signal.cpp
         src/rectangular_signal.cpp
+        src/symmetrical_rectangular_signal.cpp
         )
 
 target_include_directories(library PUBLIC include)
