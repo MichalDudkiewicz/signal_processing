@@ -10,10 +10,6 @@ namespace cps {
 
     public:
         double value(double /* x */) const override;
-
-    private:
-        double mMean;
-        double mStdDev;
     };
 }
 
