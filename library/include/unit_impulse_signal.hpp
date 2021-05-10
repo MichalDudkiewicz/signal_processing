@@ -1,10 +1,10 @@
 #ifndef SIGNAL_PROCESSING_UNIT_IMPULSE_SIGNAL_HPP
 #define SIGNAL_PROCESSING_UNIT_IMPULSE_SIGNAL_HPP
 
-#include "signal.hpp"
+#include "discreet_signal.hpp"
 
 namespace cps {
-    class UnitImpulseSignal : public Signal {
+    class UnitImpulseSignal : public DiscreetSignal {
     public:
         UnitImpulseSignal(int initialTimeSec, int durationSec,
                           int impulseSampleNumber, int samplingFrequency);
@@ -13,7 +13,6 @@ namespace cps {
         double value(double x) const override;
 
     private:
-        int mSamplingFrequency;
         double mImpulseSampleX;
     };
 }

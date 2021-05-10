@@ -15,7 +15,7 @@ namespace cps {
 
     UnitImpulseSignal::UnitImpulseSignal(int initialTimeSec, int durationSec,
                                          int impulseSampleNumber, int samplingFrequency)
-                                         : Signal(1, initialTimeSec, durationSec), mSamplingFrequency(samplingFrequency) {
+                                         : DiscreetSignal(1, initialTimeSec, durationSec, samplingFrequency) {
         const int samplesNumber = mDurationSec * mSamplingFrequency;
         const double sampleDeltaTime = (double)mDurationSec / (double)samplesNumber;
         mImpulseSampleX = (impulseSampleNumber - 1) * sampleDeltaTime;

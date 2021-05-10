@@ -15,6 +15,7 @@ add_library(library
         src/symmetrical_rectangular_signal.cpp
         src/triangular_signal.cpp
         src/unit_step_signal.cpp
+        src/discreet_signal.cpp
         )
 
 target_include_directories(library PUBLIC include)

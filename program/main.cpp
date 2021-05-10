@@ -14,7 +14,7 @@
 using namespace cps;
 
 int main() {
-//    UnitImpulseSignal signal(0, 4, 10, 16);
+    UnitImpulseSignal signal(0, 4, 10, 16);
 //    UniformDistributionNoise signal(1, 0, 4);
 //    GaussianNoise signal(1, 0, 5);
 //    SinusoidalSignal signal(1, 0, 4, 1);
@@ -23,7 +23,8 @@ int main() {
 //    RectangularSignal signal(10, 0, 10, 2, 0.25);
 //    SymmetricalRectangularSignal signal(10, 0, 10, 2, 0.25);
 //    TriangularSignal signal(1, 0, 4, 1, 0.5);
-    UnitStepSignal signal(1, 0, 4, 1);
+//    UnitStepSignal signal(1, 0, 4, 1);
+
     SignalSampler signalSampler(16);
     const auto sampledSignal = signalSampler.sample(signal);
 
