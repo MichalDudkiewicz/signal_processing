@@ -69,6 +69,6 @@ namespace cps {
     }
 
     void Signal::setSamplingFrequency(int samplingFrequency) {
-
+        mSamplingFrequency = samplingFrequency;
     }
 }
