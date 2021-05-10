@@ -8,7 +8,7 @@ namespace cps
     public:
         virtual ~Signal() = default;
 
-        Signal(int amplitude, int initialTimeSec, int durationSec);
+        Signal(double amplitude, int initialTimeSec, int durationSec);
 
     public:
         virtual double value(double x) const = 0;
@@ -18,7 +18,7 @@ namespace cps
         int initialTime() const;
 
     protected:
-        int mAmplitude;
+        double mAmplitude;
         int mInitialTimeSec;
         int mDurationSec;
     };

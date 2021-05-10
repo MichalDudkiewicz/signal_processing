@@ -2,7 +2,7 @@
 
 namespace cps {
 
-    Signal::Signal(int amplitude, int initialTimeSec, int durationSec)
+    Signal::Signal(double amplitude, int initialTimeSec, int durationSec)
     : mAmplitude(amplitude), mInitialTimeSec(initialTimeSec), mDurationSec(durationSec)
     {
     }

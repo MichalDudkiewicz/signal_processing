@@ -6,7 +6,7 @@
 namespace cps {
     class GaussianNoise : public Signal {
     public:
-        GaussianNoise(int amplitude, int initialTimeSec, int durationSec);
+        GaussianNoise(double amplitude, int initialTimeSec, int durationSec);
 
     public:
         double value(double /* x */) const override;

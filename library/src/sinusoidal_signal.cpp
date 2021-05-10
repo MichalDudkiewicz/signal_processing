@@ -2,7 +2,7 @@
 #include <cmath>
 
 namespace cps {
-    SinusoidalSignal::SinusoidalSignal(int amplitude, int initialTimeSec, int durationSec, double period)
+    SinusoidalSignal::SinusoidalSignal(double amplitude, int initialTimeSec, int durationSec, double period)
     : Signal(amplitude, initialTimeSec, durationSec), mPeriod(period)
     {
 
