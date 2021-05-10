@@ -2,6 +2,7 @@
 #include "signal_sampler.hpp"
 #include <cmath>
 #include "custom_signal.hpp"
+#include <cstring>
 
 namespace cps {
 
@@ -163,5 +164,17 @@ namespace cps {
             return customSignal;
         }
         throw std::runtime_error("incorrect signals multiplied");
+    }
+
+    void Signal::serialize(std::ostream &stream) const {
+        stream.write(reinterpret_cast<const char*>(&mInitialTimeSec), sizeof mInitialTimeSec);
+        stream.write(reinterpret_cast<const char*>(&mSamplingFrequency), sizeof mSamplingFrequency);
+        const auto dataY = data().y;
+        const auto size = dataY.size();
+        stream.write(reinterpret_cast<const char*>(&size), sizeof size);
+        for (const auto& y : dataY)
+        {
+            stream.write(reinterpret_cast<const char*>(&y), sizeof y);
+        }
     }
 }

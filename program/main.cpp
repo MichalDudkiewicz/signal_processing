@@ -13,6 +13,10 @@
 #include "impulse_noise.hpp"
 #include <iostream>
 #include <custom_signal.hpp>
+#include <sstream>
+#include <fstream>
+#include <ostream>
+#include <istream>
 
 using namespace cps;
 
@@ -32,6 +36,19 @@ int main() {
 //    std::cout << signal.mean() << "\n" << signal.absMean() << "\n" << signal.rms() << "\n" << signal.variance() << "\n" << signal.meanPower();
 
     const auto custom = signal1 * signal2;
+
+    std::ofstream out;
+    out.open( "1.bin",
+              std::ios::out | std::ios::trunc | std::ios::binary );
+
+    custom.serialize(out);
+    out.close();
+
+    std::fstream in;
+    in.open("1.bin", std::ios::in | std::ios::binary);
+    CustomSignal customSignal;
+    customSignal.unserialize(in);
+    in.close();
 
     int a = 0;
 }

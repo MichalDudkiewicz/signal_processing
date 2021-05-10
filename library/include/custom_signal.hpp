@@ -3,16 +3,21 @@
 
 #include "signal.hpp"
 #include "signal_sampler.hpp"
+#include <istream>
 
 namespace cps {
     class CustomSignal : public Signal {
     public:
         explicit CustomSignal(double amplitude, double initialTimeSec, double durationSec, SignalData data);
 
+        CustomSignal();
+
     public:
         double value(double x) const override;
 
         SignalData data() const override;
+
+        void unserialize(std::istream& istr);
 
     private:
         SignalData mData;

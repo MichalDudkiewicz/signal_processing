@@ -3,6 +3,7 @@
 
 #include "signal_sampler.hpp"
 #include <memory>
+#include <ostream>
 
 namespace cps
 {
@@ -43,6 +44,8 @@ namespace cps
         CustomSignal operator+(const Signal& signal) const;
 
         CustomSignal operator-(const Signal& signal) const;
+
+        void serialize(std::ostream &stream) const;
 
     protected:
         double mAmplitude;
