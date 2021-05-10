@@ -9,11 +9,11 @@ namespace cps {
     {
     }
 
-    int Signal::duration() const {
+    double Signal::duration() const {
         return mDurationSec;
     }
 
-    int Signal::initialTime() const {
+    double Signal::initialTime() const {
         return mInitialTimeSec;
     }
 

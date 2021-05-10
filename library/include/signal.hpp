@@ -16,9 +16,9 @@ namespace cps
     public:
         virtual double value(double x) const = 0;
 
-        int duration() const;
+        double duration() const;
 
-        int initialTime() const;
+        double initialTime() const;
 
         SignalData data() const;
 
