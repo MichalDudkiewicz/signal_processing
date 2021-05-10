@@ -16,6 +16,7 @@ add_library(library
         src/triangular_signal.cpp
         src/unit_step_signal.cpp
         src/discreet_signal.cpp
+        src/impulse_noise.cpp
         )
 
 target_include_directories(library PUBLIC include)
