@@ -4,7 +4,7 @@
 
 namespace cps {
 
-    UniformDistributionNoise::UniformDistributionNoise(double amplitude, int initialTimeSec, int durationSec) : Signal(
+    UniformDistributionNoise::UniformDistributionNoise(double amplitude, double initialTimeSec, double durationSec) : Signal(
             amplitude, initialTimeSec, durationSec) {
         std::srand(time(nullptr));
     }

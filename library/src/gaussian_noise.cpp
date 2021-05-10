@@ -4,7 +4,7 @@
 
 namespace cps {
 
-    GaussianNoise::GaussianNoise(double amplitude, int initialTimeSec, int durationSec)
+    GaussianNoise::GaussianNoise(double amplitude, double initialTimeSec, double durationSec)
     : Signal(amplitude, initialTimeSec, durationSec)
     {
 

@@ -6,7 +6,7 @@
 namespace cps {
     class RectifiedSinusoidalSignal : public PeriodicSignal {
     public:
-        RectifiedSinusoidalSignal(double amplitude, int initialTimeSec, int durationSec, double period);
+        RectifiedSinusoidalSignal(double amplitude, double initialTimeSec, double durationSec, double period);
 
     public:
         double value(double x) const override;

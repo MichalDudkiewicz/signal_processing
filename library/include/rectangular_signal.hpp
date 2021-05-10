@@ -6,7 +6,7 @@
 namespace cps {
     class RectangularSignal : public PeriodicSignal {
     public:
-        RectangularSignal(double amplitude, int initialTimeSec, int durationSec, double period, double kw);
+        RectangularSignal(double amplitude, double initialTimeSec, double durationSec, double period, double kw);
 
     public:
         double value(double x) const override;

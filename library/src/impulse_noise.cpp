@@ -3,7 +3,7 @@
 
 namespace cps {
 
-    ImpulseNoise::ImpulseNoise(double amplitude, int initialTimeSec, int durationSec, int samplingFrequency, double probability)
+    ImpulseNoise::ImpulseNoise(double amplitude, double initialTimeSec, double durationSec, int samplingFrequency, double probability)
             : DiscreetSignal(amplitude, initialTimeSec, durationSec, samplingFrequency), mProbability(probability) {
 
     }

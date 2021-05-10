@@ -1,4 +1,5 @@
 #include "periodic_signal.hpp"
+#include <cmath>
 
 namespace cps {
 
@@ -6,9 +7,8 @@ namespace cps {
         return mPeriod;
     }
 
-    PeriodicSignal::PeriodicSignal(double amplitude, int initialTimeSec, int durationSec, double periodSec)
-    : Signal(amplitude, initialTimeSec, durationSec), mPeriod(periodSec)
+    PeriodicSignal::PeriodicSignal(double amplitude, double initialTimeSec, double durationSec, double periodSec)
+    : Signal(amplitude, initialTimeSec, floor(initialTimeSec + durationSec / periodSec) * periodSec), mPeriod(periodSec)
     {
-
     }
 }

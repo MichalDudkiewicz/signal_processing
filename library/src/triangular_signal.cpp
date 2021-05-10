@@ -3,7 +3,7 @@
 
 namespace cps {
 
-    TriangularSignal::TriangularSignal(double amplitude, int initialTimeSec, int durationSec, double period, double kw)
+    TriangularSignal::TriangularSignal(double amplitude, double initialTimeSec, double durationSec, double period, double kw)
             : RectangularSignal(amplitude, initialTimeSec, durationSec, period, kw) {
 
     }

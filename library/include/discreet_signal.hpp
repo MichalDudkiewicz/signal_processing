@@ -6,7 +6,7 @@
 namespace cps {
     class DiscreetSignal : public Signal {
     public:
-        DiscreetSignal(double amplitude, int initialTimeSec, int durationSec, int samplingFrequency);
+        DiscreetSignal(double amplitude, double initialTimeSec, double durationSec, int samplingFrequency);
 
     protected:
         int mSamplingFrequency;

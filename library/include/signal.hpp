@@ -11,7 +11,7 @@ namespace cps
     public:
         virtual ~Signal() = default;
 
-        Signal(double amplitude, int initialTimeSec, int durationSec);
+        Signal(double amplitude, double initialTimeSec, double durationSec);
 
     public:
         virtual double value(double x) const = 0;
@@ -36,8 +36,8 @@ namespace cps
 
     protected:
         double mAmplitude;
-        int mInitialTimeSec;
-        int mDurationSec;
+        double mInitialTimeSec;
+        double mDurationSec;
         int mSamplingFrequency = 16;
     };
 }

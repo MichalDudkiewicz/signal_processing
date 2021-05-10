@@ -6,7 +6,7 @@
 namespace cps {
     class UniformDistributionNoise : public Signal {
     public:
-        UniformDistributionNoise(double amplitude, int initialTimeSec, int durationSec);
+        UniformDistributionNoise(double amplitude, double initialTimeSec, double durationSec);
 
     public:
         double value(double /* x */) const override;

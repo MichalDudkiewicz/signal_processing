@@ -17,7 +17,7 @@ namespace cps {
         }
     }
 
-    UnitStepSignal::UnitStepSignal(double amplitude, int initialTimeSec, int durationSec, int stepTimeSec)
+    UnitStepSignal::UnitStepSignal(double amplitude, double initialTimeSec, double durationSec, int stepTimeSec)
     : Signal(amplitude, initialTimeSec, durationSec), mStepTimeSec(stepTimeSec)
     {
 

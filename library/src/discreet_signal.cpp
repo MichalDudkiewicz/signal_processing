@@ -2,7 +2,7 @@
 
 namespace cps {
 
-    DiscreetSignal::DiscreetSignal(double amplitude, int initialTimeSec, int durationSec, int samplingFrequency)
+    DiscreetSignal::DiscreetSignal(double amplitude, double initialTimeSec, double durationSec, int samplingFrequency)
     : Signal(amplitude, initialTimeSec, durationSec), mSamplingFrequency(samplingFrequency)
     {
 

@@ -13,7 +13,7 @@ namespace cps {
         }
     }
 
-    UnitImpulseSignal::UnitImpulseSignal(int initialTimeSec, int durationSec,
+    UnitImpulseSignal::UnitImpulseSignal(double initialTimeSec, double durationSec,
                                          int impulseSampleNumber, int samplingFrequency)
                                          : DiscreetSignal(1, initialTimeSec, durationSec, samplingFrequency) {
         const int samplesNumber = mDurationSec * mSamplingFrequency;

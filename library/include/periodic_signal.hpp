@@ -6,7 +6,7 @@
 namespace cps {
     class PeriodicSignal : public Signal {
     public:
-        PeriodicSignal(double amplitude, int initialTimeSec, int durationSec, double periodSec);
+        PeriodicSignal(double amplitude, double initialTimeSec, double durationSec, double periodSec);
 
     public:
         double period() const;

@@ -6,7 +6,7 @@
 namespace cps {
     class ImpulseNoise : public DiscreetSignal {
     public:
-        ImpulseNoise(double amplitude, int initialTimeSec, int durationSec, int samplingFrequency, double probability);
+        ImpulseNoise(double amplitude, double initialTimeSec, double durationSec, int samplingFrequency, double probability);
 
     public:
         double value(double x) const override;

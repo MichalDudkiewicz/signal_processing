@@ -1,7 +1,7 @@
 #include "symmetrical_rectangular_signal.hpp"
 
 namespace cps {
-    SymmetricalRectangularSignal::SymmetricalRectangularSignal(double amplitude, int initialTimeSec, int durationSec, double period, double kw)
+    SymmetricalRectangularSignal::SymmetricalRectangularSignal(double amplitude, double initialTimeSec, double durationSec, double period, double kw)
     : RectangularSignal(amplitude, initialTimeSec, durationSec, period, kw)
     {
 

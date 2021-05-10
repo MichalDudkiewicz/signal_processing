@@ -3,7 +3,7 @@
 
 namespace cps {
 
-    RectifiedSinusoidalSignal::RectifiedSinusoidalSignal(double amplitude, int initialTimeSec, int durationSec,
+    RectifiedSinusoidalSignal::RectifiedSinusoidalSignal(double amplitude, double initialTimeSec, double durationSec,
                                                          double period) : PeriodicSignal(amplitude, initialTimeSec,
                                                                                            durationSec, period) {
 

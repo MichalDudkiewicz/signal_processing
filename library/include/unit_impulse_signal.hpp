@@ -6,7 +6,7 @@
 namespace cps {
     class UnitImpulseSignal : public DiscreetSignal {
     public:
-        UnitImpulseSignal(int initialTimeSec, int durationSec,
+        UnitImpulseSignal(double initialTimeSec, double durationSec,
                           int impulseSampleNumber, int samplingFrequency);
 
     public:

@@ -3,7 +3,7 @@
 
 namespace cps {
 
-    RectangularSignal::RectangularSignal(double amplitude, int initialTimeSec, int durationSec, double period,
+    RectangularSignal::RectangularSignal(double amplitude, double initialTimeSec, double durationSec, double period,
                                          double kw)
                                          : PeriodicSignal(amplitude, initialTimeSec, durationSec, period), mKw(kw) {
 

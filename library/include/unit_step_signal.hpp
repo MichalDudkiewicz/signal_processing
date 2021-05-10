@@ -6,7 +6,7 @@
 namespace cps {
     class UnitStepSignal : public Signal {
     public:
-        UnitStepSignal(double amplitude, int initialTimeSec, int durationSec, int stepTimeSec);
+        UnitStepSignal(double amplitude, double initialTimeSec, double durationSec, int stepTimeSec);
 
     public:
         double value(double x) const override;
