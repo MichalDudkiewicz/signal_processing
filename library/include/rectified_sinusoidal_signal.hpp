@@ -1,10 +1,10 @@
 #ifndef SIGNAL_PROCESSING_RECTIFIED_SINUSOIDAL_SIGNAL_HPP
 #define SIGNAL_PROCESSING_RECTIFIED_SINUSOIDAL_SIGNAL_HPP
 
-#include "sinusoidal_signal.hpp"
+#include "periodic_signal.hpp"
 
 namespace cps {
-    class RectifiedSinusoidalSignal : public SinusoidalSignal {
+    class RectifiedSinusoidalSignal : public PeriodicSignal {
     public:
         RectifiedSinusoidalSignal(double amplitude, int initialTimeSec, int durationSec, double period);
 

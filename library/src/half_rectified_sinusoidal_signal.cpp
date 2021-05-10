@@ -4,7 +4,7 @@
 namespace cps {
 
     HalfRectifiedSinusoidalSignal::HalfRectifiedSinusoidalSignal(double amplitude, int initialTimeSec, int durationSec,
-                                                                 double period) : SinusoidalSignal(amplitude,
+                                                                 double period) : PeriodicSignal(amplitude,
                                                                                                    initialTimeSec,
                                                                                                    durationSec,
                                                                                                    period) {

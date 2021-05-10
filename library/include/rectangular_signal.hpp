@@ -1,10 +1,10 @@
 #ifndef SIGNAL_PROCESSING_RECTANGULAR_SIGNAL_HPP
 #define SIGNAL_PROCESSING_RECTANGULAR_SIGNAL_HPP
 
-#include "signal.hpp"
+#include "periodic_signal.hpp"
 
 namespace cps {
-    class RectangularSignal : public Signal {
+    class RectangularSignal : public PeriodicSignal {
     public:
         RectangularSignal(double amplitude, int initialTimeSec, int durationSec, double period, double kw);
 
@@ -12,7 +12,6 @@ namespace cps {
         double value(double x) const override;
 
     protected:
-        double mPeriod;
         double mKw;
     };
 }

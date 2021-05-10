@@ -3,7 +3,7 @@
 
 namespace cps {
     SinusoidalSignal::SinusoidalSignal(double amplitude, int initialTimeSec, int durationSec, double period)
-    : Signal(amplitude, initialTimeSec, durationSec), mPeriod(period)
+    : PeriodicSignal(amplitude, initialTimeSec, durationSec, period)
     {
 
     }
