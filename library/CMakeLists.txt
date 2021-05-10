@@ -10,6 +10,7 @@ add_library(library
         src/gaussian_noise.cpp
         src/sinusoidal_signal.cpp
         src/half_rectified_sinusoidal_signal.cpp
+        src/rectified_sinusoidal_signal.cpp
         )
 
 target_include_directories(library PUBLIC include)

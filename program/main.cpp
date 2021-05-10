@@ -5,6 +5,7 @@
 #include "gaussian_noise.hpp"
 #include "sinusoidal_signal.hpp"
 #include "half_rectified_sinusoidal_signal.hpp"
+#include "rectified_sinusoidal_signal.hpp"
 
 using namespace cps;
 
@@ -13,7 +14,8 @@ int main() {
 //    UniformDistributionNoise signal(1, 0, 4);
 //    GaussianNoise signal(1, 0, 5);
 //    SinusoidalSignal signal(1, 0, 4, 1);
-    HalfRectifiedSinusoidalSignal signal(1, 0, 4, 1);
+//    HalfRectifiedSinusoidalSignal signal(1, 0, 4, 1);
+    RectifiedSinusoidalSignal signal(1, 0, 4, 1);
     SignalSampler signalSampler(16);
     const auto sampledSignal = signalSampler.sample(signal);
 
