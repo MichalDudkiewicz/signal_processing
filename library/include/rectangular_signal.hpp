@@ -11,7 +11,7 @@ namespace cps {
     public:
         double value(double x) const override;
 
-    private:
+    protected:
         double mPeriod;
         double mKw;
     };

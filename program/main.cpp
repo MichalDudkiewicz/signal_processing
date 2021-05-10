@@ -8,6 +8,7 @@
 #include "rectified_sinusoidal_signal.hpp"
 #include "rectangular_signal.hpp"
 #include "symmetrical_rectangular_signal.hpp"
+#include "triangular_signal.hpp"
 
 using namespace cps;
 
@@ -19,7 +20,8 @@ int main() {
 //    HalfRectifiedSinusoidalSignal signal(1, 0, 4, 1);
 //    RectifiedSinusoidalSignal signal(1, 0, 4, 1);
 //    RectangularSignal signal(10, 0, 10, 2, 0.25);
-    SymmetricalRectangularSignal signal(10, 0, 10, 2, 0.25);
+//    SymmetricalRectangularSignal signal(10, 0, 10, 2, 0.25);
+    TriangularSignal signal(1, 0, 4, 1, 0.5);
     SignalSampler signalSampler(16);
     const auto sampledSignal = signalSampler.sample(signal);
 
