@@ -9,6 +9,7 @@
 #include "rectangular_signal.hpp"
 #include "symmetrical_rectangular_signal.hpp"
 #include "triangular_signal.hpp"
+#include "unit_step_signal.hpp"
 
 using namespace cps;
 
@@ -21,7 +22,8 @@ int main() {
 //    RectifiedSinusoidalSignal signal(1, 0, 4, 1);
 //    RectangularSignal signal(10, 0, 10, 2, 0.25);
 //    SymmetricalRectangularSignal signal(10, 0, 10, 2, 0.25);
-    TriangularSignal signal(1, 0, 4, 1, 0.5);
+//    TriangularSignal signal(1, 0, 4, 1, 0.5);
+    UnitStepSignal signal(1, 0, 4, 1);
     SignalSampler signalSampler(16);
     const auto sampledSignal = signalSampler.sample(signal);
 
