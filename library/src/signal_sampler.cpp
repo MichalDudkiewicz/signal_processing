@@ -1,5 +1,6 @@
 #include "signal_sampler.hpp"
 #include "signal.hpp"
+#include "utils.hpp"
 
 namespace cps {
 
@@ -18,7 +19,8 @@ namespace cps {
         while (x <= xEnd)
         {
             sampledSignal.x.push_back(x);
-            const double y = signal.value(x);
+            double y = signal.value(x);
+            y = roundTo5(y);
             sampledSignal.y.push_back(y);
             x += sampleDeltaTime;
         }

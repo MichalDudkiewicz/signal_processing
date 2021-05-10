@@ -19,6 +19,7 @@ add_library(library
         src/impulse_noise.cpp
         src/periodic_signal.cpp
         src/custom_signal.cpp
+        src/utils.cpp
         )
 
 target_include_directories(library PUBLIC include)

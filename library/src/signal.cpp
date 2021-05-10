@@ -2,13 +2,9 @@
 #include "signal_sampler.hpp"
 #include <cmath>
 #include "custom_signal.hpp"
+#include "utils.hpp"
 
 namespace cps {
-
-    double roundTo5(double value)
-    {
-        return round( value * 100000.0 ) / 100000.0;
-    }
 
     Signal::Signal(double amplitude, double initialTimeSec, double durationSec)
     : mAmplitude(amplitude), mInitialTimeSec(initialTimeSec), mDurationSec(durationSec)
