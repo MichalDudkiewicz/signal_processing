@@ -2,9 +2,13 @@
 #include "signal_sampler.hpp"
 #include <cmath>
 #include "custom_signal.hpp"
-#include <cstring>
 
 namespace cps {
+
+    double roundTo5(double value)
+    {
+        return round( value * 100000.0 ) / 100000.0;
+    }
 
     Signal::Signal(double amplitude, double initialTimeSec, double durationSec)
     : mAmplitude(amplitude), mInitialTimeSec(initialTimeSec), mDurationSec(durationSec)
@@ -32,7 +36,7 @@ namespace cps {
         for (int i = 0; i < data.x.size(); i++) {
             sum += data.y[i];
         }
-        return sum / size;
+        return roundTo5(sum / size);
     }
 
     double Signal::absMean() const {
@@ -42,11 +46,11 @@ namespace cps {
         for (int i = 0; i < size; i++) {
             sum += fabs(data.y[i]);
         }
-        return sum / size;
+        return roundTo5(sum / size);
     }
 
     double Signal::rms() const {
-        return sqrt(meanPower());
+        return roundTo5(sqrt(meanPower()));
     }
 
     double Signal::variance() const {
@@ -57,7 +61,7 @@ namespace cps {
         for (int i = 0; i < size; i++) {
             sum += pow(data.y[i] - mean, 2.0);
         }
-        return sum / size;
+        return roundTo5(sum / size);
     }
 
     double Signal::meanPower() const {
@@ -67,7 +71,7 @@ namespace cps {
         for (int i = 0; i < data.x.size(); i++) {
             sum += pow(data.y[i], 2.0);
         }
-        return sum / size;
+        return roundTo5(sum / size);
     }
 
     void Signal::setSamplingFrequency(int samplingFrequency) {

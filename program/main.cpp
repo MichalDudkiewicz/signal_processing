@@ -33,7 +33,7 @@ int main() {
 //    UnitImpulseSignal signal(0, 4, 10, 16);
 //    ImpulseNoise signal(1, 0, 4, 16, 0.5);
 
-//    std::cout << signal.mean() << "\n" << signal.absMean() << "\n" << signal.rms() << "\n" << signal.variance() << "\n" << signal.meanPower();
+    std::cout << signal1.mean() << "\n" << signal1.absMean() << "\n" << signal1.rms() << "\n" << signal1.variance() << "\n" << signal1.meanPower() << '\n';
 
     const auto custom = signal1 * signal2;
 
