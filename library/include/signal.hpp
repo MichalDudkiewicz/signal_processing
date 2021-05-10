@@ -38,6 +38,12 @@ namespace cps
 
         CustomSignal operator*(const Signal& signal) const;
 
+        CustomSignal operator/(const Signal& signal) const;
+
+        CustomSignal operator+(const Signal& signal) const;
+
+        CustomSignal operator-(const Signal& signal) const;
+
     protected:
         double mAmplitude;
         double mInitialTimeSec;
