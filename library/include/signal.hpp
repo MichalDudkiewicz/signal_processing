@@ -20,12 +20,25 @@ namespace cps
 
         int initialTime() const;
 
-        SignalData data(int samplingFrequency) const;
+        SignalData data() const;
+
+        double meanPower() const;
+
+        double variance() const;
+
+        double absMean() const;
+
+        double mean() const;
+
+        double rms() const;
+
+        void setSamplingFrequency(int samplingFrequency);
 
     protected:
         double mAmplitude;
         int mInitialTimeSec;
         int mDurationSec;
+        int mSamplingFrequency = 16;
     };
 }
 
