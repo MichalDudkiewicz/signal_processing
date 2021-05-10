@@ -47,6 +47,8 @@ namespace cps
 
         void serialize(std::ostream &stream) const;
 
+        friend std::ostream& operator<<(std::ostream& os, const Signal& signal);
+
     protected:
         double mAmplitude;
         double mInitialTimeSec;

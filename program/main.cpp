@@ -50,6 +50,8 @@ int main() {
     customSignal.unserialize(in);
     in.close();
 
+    std::cout << customSignal;
+
     int a = 0;
 }
 

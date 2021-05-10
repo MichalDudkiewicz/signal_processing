@@ -177,4 +177,17 @@ namespace cps {
             stream.write(reinterpret_cast<const char*>(&y), sizeof y);
         }
     }
+
+    std::ostream &operator<<(std::ostream &os, const Signal &signal) {
+        const auto data = signal.data();
+        os << "Initial time: " << signal.mInitialTimeSec << '\n'
+        << "Sampling frequency: " << signal.mSamplingFrequency << '\n'
+        << "Number of samples: " << data.y.size() - 1 << '\n';
+        os << "Samples: " << '\n';
+        for (const auto& y : data.y)
+        {
+            os << y << '\n';
+        }
+        return os;
+    }
 }
