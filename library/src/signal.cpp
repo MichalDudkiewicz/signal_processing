@@ -1,6 +1,7 @@
 #include "signal.hpp"
 #include "signal_sampler.hpp"
 #include <cmath>
+#include "custom_signal.hpp"
 
 namespace cps {
 
@@ -70,5 +71,28 @@ namespace cps {
 
     void Signal::setSamplingFrequency(int samplingFrequency) {
         mSamplingFrequency = samplingFrequency;
+    }
+
+    CustomSignal Signal::operator*(const Signal& signal) const
+    {
+        if (signal.mSamplingFrequency == mSamplingFrequency && signal.initialTime() == mInitialTimeSec && signal.duration() == mDurationSec)
+        {
+            SignalData newData;
+            const auto data1 = data();
+            const auto data2 = signal.data();
+            double amplitude = 0;
+            for (int i = 0; i < data1.x.size(); i++)
+            {
+                newData.x.push_back(data1.x[i]);
+                newData.y.push_back(data1.y[i] * data2.y[i]);
+                if (fabs(newData.y[i]) > amplitude)
+                {
+                    amplitude = fabs(newData.y[i]);
+                }
+            }
+            CustomSignal customSignal(amplitude, mInitialTimeSec, mDurationSec, newData);
+            return customSignal;
+        }
+        throw std::runtime_error("incorrect signals multiplied");
     }
 }

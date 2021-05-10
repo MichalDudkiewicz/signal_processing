@@ -12,15 +12,16 @@
 #include "unit_step_signal.hpp"
 #include "impulse_noise.hpp"
 #include <iostream>
+#include <custom_signal.hpp>
 
 using namespace cps;
 
 int main() {
 //    UniformDistributionNoise signal(1, 0, 4);
 //    GaussianNoise signal(1, 0, 5);
-    SinusoidalSignal signal(1, 0, 4, 3);
-//    HalfRectifiedSinusoidalSignal signal(1, 0, 4, 1);
-//    RectifiedSinusoidalSignal signal(1, 0, 4, 1);
+    SinusoidalSignal signal1(1, 0, 4, 1);
+    HalfRectifiedSinusoidalSignal signal2(1, 0, 4, 1);
+//    RectifiedSinusoidalSignal signal2(1, 0, 4, 1);
 //    RectangularSignal signal(-1, 0, 4, 1, 0.25);
 //    SymmetricalRectangularSignal signal(-1, 0, 4, 1, 0.25);
 //    TriangularSignal signal(1, 0, 4, 1, 0.5);
@@ -28,7 +29,9 @@ int main() {
 //    UnitImpulseSignal signal(0, 4, 10, 16);
 //    ImpulseNoise signal(1, 0, 4, 16, 0.5);
 
-    std::cout << signal.mean() << "\n" << signal.absMean() << "\n" << signal.rms() << "\n" << signal.variance() << "\n" << signal.meanPower();
+//    std::cout << signal.mean() << "\n" << signal.absMean() << "\n" << signal.rms() << "\n" << signal.variance() << "\n" << signal.meanPower();
+
+    const auto custom = signal1 * signal2;
 
     int a = 0;
 }

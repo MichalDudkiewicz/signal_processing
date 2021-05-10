@@ -6,6 +6,8 @@
 
 namespace cps
 {
+    class CustomSignal;
+
     class Signal
     {
     public:
@@ -20,7 +22,7 @@ namespace cps
 
         double initialTime() const;
 
-        SignalData data() const;
+        virtual SignalData data() const;
 
         double meanPower() const;
 
@@ -33,6 +35,8 @@ namespace cps
         double rms() const;
 
         void setSamplingFrequency(int samplingFrequency);
+
+        CustomSignal operator*(const Signal& signal) const;
 
     protected:
         double mAmplitude;
