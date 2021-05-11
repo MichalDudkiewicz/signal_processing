@@ -117,7 +117,7 @@ namespace cps {
             CustomSignal customSignal(amplitude, mInitialTimeSec, mDurationSec, newData);
             return customSignal;
         }
-        throw std::runtime_error("incorrect signals multiplied");
+        throw std::runtime_error("incorrect signals substracted");
     }
 
     CustomSignal Signal::operator+(const Signal& signal) const
@@ -140,7 +140,7 @@ namespace cps {
             CustomSignal customSignal(amplitude, mInitialTimeSec, mDurationSec, newData);
             return customSignal;
         }
-        throw std::runtime_error("incorrect signals multiplied");
+        throw std::runtime_error("incorrect signals added");
     }
 
     CustomSignal Signal::operator/(const Signal& signal) const
@@ -163,7 +163,7 @@ namespace cps {
             CustomSignal customSignal(amplitude, mInitialTimeSec, mDurationSec, newData);
             return customSignal;
         }
-        throw std::runtime_error("incorrect signals multiplied");
+        throw std::runtime_error("incorrect signals divided");
     }
 
     void Signal::serialize(std::ostream &stream) const {
