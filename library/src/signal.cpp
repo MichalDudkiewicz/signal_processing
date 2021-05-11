@@ -190,4 +190,58 @@ namespace cps {
         }
         return os;
     }
+
+    HistogramData Signal::histogramData(unsigned int numberOfIntervals) const {
+        const auto dataCopy = data();
+        const double min = minValue();
+        const double max = maxValue();
+        const double deltaY = (max - min) / numberOfIntervals;
+        double y = min;
+        HistogramData histogramData;
+        while (y < max)
+        {
+            const double yEnd = y + deltaY;
+            histogramData.intervals.emplace_back(y, yEnd);
+            unsigned int occurrences = 0;
+            for (const auto& signalY : dataCopy.y)
+            {
+                if (signalY >= y && signalY < yEnd)
+                {
+                    occurrences += 1;
+                }
+            }
+            histogramData.occurrences.push_back(occurrences);
+            y = yEnd;
+        }
+        histogramData.occurrences.back() += 1;
+        return histogramData;
+    }
+
+    double Signal::maxValue() const {
+        const auto dataCopy = data();
+        double max = dataCopy.y.front();
+        for (int i = 1; i<=dataCopy.y.size(); i++)
+        {
+            const double y = dataCopy.y[i];
+            if (y > max)
+            {
+                max = y;
+            }
+        }
+        return max;
+    }
+
+    double Signal::minValue() const {
+        const auto dataCopy = data();
+        double min = dataCopy.y.front();
+        for (int i = 1; i<=dataCopy.y.size(); i++)
+        {
+            const double y = dataCopy.y[i];
+            if (y < min)
+            {
+                min = y;
+            }
+        }
+        return min;
+    }
 }

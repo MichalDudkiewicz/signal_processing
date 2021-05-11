@@ -4,10 +4,18 @@
 #include "signal_sampler.hpp"
 #include <memory>
 #include <ostream>
+#include <vector>
 
 namespace cps
 {
     class CustomSignal;
+
+    struct HistogramData
+    {
+        std::vector<std::pair<double, double>> intervals;
+
+        std::vector<unsigned int> occurrences;
+    };
 
     class Signal
     {
@@ -24,6 +32,8 @@ namespace cps
         double initialTime() const;
 
         virtual SignalData data() const;
+
+        HistogramData histogramData(unsigned int numberOfIntervals) const;
 
         double meanPower() const;
 
@@ -48,6 +58,11 @@ namespace cps
         void serialize(std::ostream &stream) const;
 
         friend std::ostream& operator<<(std::ostream& os, const Signal& signal);
+
+    private:
+        double maxValue() const;
+
+        double minValue() const;
 
     protected:
         double mAmplitude;
