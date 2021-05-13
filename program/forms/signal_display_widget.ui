@@ -52,7 +52,7 @@
       </widget>
      </item>
      <item row="8" column="0">
-      <widget class="QLabel" name="label_3">
+      <widget class="QLabel" name="durationLabel">
        <property name="text">
         <string>duration</string>
        </property>
@@ -85,28 +85,28 @@
       </widget>
      </item>
      <item row="4" column="0">
-      <widget class="QLabel" name="label_2">
+      <widget class="QLabel" name="initialTimeLabel">
        <property name="text">
         <string>initial time</string>
        </property>
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="amplitudeLabel">
        <property name="text">
         <string>amplitude</string>
        </property>
       </widget>
      </item>
      <item row="22" column="0">
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="createButton">
        <property name="text">
         <string>create</string>
        </property>
       </widget>
      </item>
      <item row="10" column="0">
-      <widget class="QLabel" name="label_4">
+      <widget class="QLabel" name="periodLabel">
        <property name="text">
         <string>period</string>
        </property>
@@ -123,7 +123,7 @@
       </widget>
      </item>
      <item row="12" column="0">
-      <widget class="QLabel" name="label_5">
+      <widget class="QLabel" name="samplingFrequencyLabel">
        <property name="text">
         <string>sampling frequency</string>
        </property>
@@ -150,14 +150,14 @@
       </widget>
      </item>
      <item row="14" column="0">
-      <widget class="QLabel" name="label_6">
+      <widget class="QLabel" name="probabilityLabel">
        <property name="text">
         <string>probability</string>
        </property>
       </widget>
      </item>
      <item row="16" column="0">
-      <widget class="QLabel" name="label_7">
+      <widget class="QLabel" name="fullfilmentLabel">
        <property name="text">
         <string>fullfilment</string>
        </property>
@@ -174,7 +174,7 @@
       </widget>
      </item>
      <item row="20" column="0">
-      <widget class="QLabel" name="label_8">
+      <widget class="QLabel" name="impulseSampleNumberLabel">
        <property name="text">
         <string>number of impulse sample</string>
        </property>
@@ -191,7 +191,7 @@
       </widget>
      </item>
      <item row="18" column="0">
-      <widget class="QLabel" name="label_9">
+      <widget class="QLabel" name="stepTimeLabel">
        <property name="text">
         <string>step time</string>
        </property>

@@ -24,6 +24,7 @@ private:
 
 private slots:
     void on_comboBox_currentTextChanged(const QString& text);
+    void on_createButton_clicked();
 };
 
 

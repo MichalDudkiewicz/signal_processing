@@ -43,15 +43,83 @@ SignalDisplayWidget::~SignalDisplayWidget() {
 
 void SignalDisplayWidget::on_comboBox_currentTextChanged(const QString& text)
 {
-//    ui->periodTextEdit->hide();
-//    ui->samplingFrequencyTextEdit->hide();
-//    ui->probabilityTextEdit->hide();
-//    ui->kwTextEdit->hide();
-//    ui->impulseSampleNumberTextEdit->hide();
-//    ui->stepTimeTextEdit->hide();
+    ui->periodTextEdit->hide();
+    ui->samplingFrequencyTextEdit->hide();
+    ui->probabilityTextEdit->hide();
+    ui->kwTextEdit->hide();
+    ui->impulseSampleNumberTextEdit->hide();
+    ui->stepTimeTextEdit->hide();
+    ui->periodLabel->hide();
+    ui->samplingFrequencyLabel->hide();
+    ui->probabilityLabel->hide();
+    ui->fullfilmentLabel->hide();
+    ui->impulseSampleNumberLabel->hide();
+    ui->stepTimeLabel->hide();
+
+    if (text == "half rectified sinusoidal" || text == "rectified sinusoidal" || text == "sinusoidal")
+    {
+        ui->periodTextEdit->show();
+        ui->periodLabel->show();
+    }
+    else if (text == "impulse noise")
+    {
+        ui->samplingFrequencyTextEdit->show();
+        ui->probabilityTextEdit->show();
+        ui->samplingFrequencyLabel->show();
+        ui->probabilityLabel->show();
+    }
+    else if (text == "rectangular" || text == "symmetrical rectangular" || text == "triangular")
+    {
+        ui->periodTextEdit->show();
+        ui->kwTextEdit->show();
+        ui->periodLabel->show();
+        ui->fullfilmentLabel->show();
+    }
+    else if (text == "unit impulse")
+    {
+        ui->samplingFrequencyTextEdit->show();
+        ui->impulseSampleNumberTextEdit->show();
+        ui->samplingFrequencyLabel->show();
+        ui->impulseSampleNumberLabel->show();
+    }
+    else if (text == "unit step")
+    {
+        ui->stepTimeTextEdit->show();
+        ui->stepTimeLabel->show();
+    }
+}
+
+void SignalDisplayWidget::plotSignal(const cps::Signal& signal, const QString& signalName) const
+{
+    std::string properties = signal.stringProperties();
+    ui->propertiesText->setText(QString::fromStdString(properties));
+    QXYSeries* series;
+    if (dynamic_cast<const cps::DiscreetSignal*>(&signal))
+    {
+        series = new QScatterSeries();
+    }
+    else
+    {
+        series = new QLineSeries();
+    }
+    const auto data = signal.data();
+    for (int i = 0; i < data.x.size(); i++)
+    {
+        series->append(data.x[i], data.y[i]);
+    }
+    ui->chartView->chart()->addSeries(series);
+    ui->chartView->chart()->createDefaultAxes();
+    ui->chartView->chart()->setTitle(signalName);
+    ui->chartView->chart()->legend()->setVisible(false);
+}
+
+void SignalDisplayWidget::on_createButton_clicked()
+{
+    ui->chartView->chart()->removeAllSeries();
     const double amplitude = ui->amplitudeTextEdit->toPlainText().toDouble();
     const double initialTime = ui->initialTimeTextEdit->toPlainText().toDouble();
     const double duration = ui->durationTextEdit->toPlainText().toDouble();
+    const auto text = ui->comboBox->currentText();
     if (text == "gaussian noise")
     {
         cps::GaussianNoise signal(amplitude, initialTime, duration);
@@ -122,28 +190,3 @@ void SignalDisplayWidget::on_comboBox_currentTextChanged(const QString& text)
         plotSignal(signal, text);
     }
 }
-
-void SignalDisplayWidget::plotSignal(const cps::Signal& signal, const QString& signalName) const
-{
-    std::string properties = signal.stringProperties();
-    ui->propertiesText->setText(QString::fromStdString(properties));
-    QXYSeries* series;
-    if (dynamic_cast<const cps::DiscreetSignal*>(&signal))
-    {
-        series = new QScatterSeries();
-    }
-    else
-    {
-        series = new QLineSeries();
-    }
-    const auto data = signal.data();
-    for (int i = 0; i < data.x.size(); i++)
-    {
-        series->append(data.x[i], data.y[i]);
-    }
-    ui->chartView->chart()->addSeries(series);
-    ui->chartView->chart()->createDefaultAxes();
-    ui->chartView->chart()->setTitle(signalName);
-    ui->chartView->chart()->legend()->setVisible(false);
-}
-
