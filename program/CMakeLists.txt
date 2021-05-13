@@ -28,5 +28,5 @@ endif ()
 
 target_include_directories(program PRIVATE include)
 
-find_package(Qt${QT_VERSION} COMPONENTS ${REQUIRED_LIBS} REQUIRED)
-target_link_libraries(${PROJECT_NAME} library ${REQUIRED_LIBS_QUALIFIED})
+find_package(Qt${QT_VERSION} COMPONENTS ${REQUIRED_LIBS} Charts REQUIRED)
+target_link_libraries(${PROJECT_NAME} library ${REQUIRED_LIBS_QUALIFIED} Qt5Charts)

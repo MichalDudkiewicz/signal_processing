@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>708</width>
-    <height>710</height>
+    <width>901</width>
+    <height>855</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,18 +16,8 @@
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
-     <item row="11" column="0">
-      <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
-       <item>
-        <widget class="QWidget" name="chart" native="true">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>6</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-        </widget>
-       </item>
+     <item row="23" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="0">
        <item>
         <widget class="QWidget" name="properties" native="true">
          <property name="sizePolicy">
@@ -37,8 +27,11 @@
           </sizepolicy>
          </property>
          <layout class="QGridLayout" name="gridLayout_3">
-          <item row="0" column="0">
+          <item row="0" column="1">
            <widget class="QTextBrowser" name="propertiesText"/>
+          </item>
+          <item row="0" column="0">
+           <widget class="QChartView" name="chartView"/>
           </item>
          </layout>
         </widget>
@@ -105,10 +98,112 @@
        </property>
       </widget>
      </item>
-     <item row="10" column="0">
+     <item row="22" column="0">
       <widget class="QPushButton" name="pushButton">
        <property name="text">
         <string>create</string>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>period</string>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="0">
+      <widget class="QTextEdit" name="periodTextEdit">
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>30</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="12" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>sampling frequency</string>
+       </property>
+      </widget>
+     </item>
+     <item row="15" column="0">
+      <widget class="QTextEdit" name="probabilityTextEdit">
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>30</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="13" column="0">
+      <widget class="QTextEdit" name="samplingFrequencyTextEdit">
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>30</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="14" column="0">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>probability</string>
+       </property>
+      </widget>
+     </item>
+     <item row="16" column="0">
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>fullfilment</string>
+       </property>
+      </widget>
+     </item>
+     <item row="17" column="0">
+      <widget class="QTextEdit" name="kwTextEdit">
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>30</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="20" column="0">
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>number of impulse sample</string>
+       </property>
+      </widget>
+     </item>
+     <item row="19" column="0">
+      <widget class="QTextEdit" name="stepTimeTextEdit">
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>30</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="18" column="0">
+      <widget class="QLabel" name="label_9">
+       <property name="text">
+        <string>step time</string>
+       </property>
+      </widget>
+     </item>
+     <item row="21" column="0">
+      <widget class="QTextEdit" name="impulseSampleNumberTextEdit">
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>30</height>
+        </size>
        </property>
       </widget>
      </item>
@@ -116,6 +211,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QChartView</class>
+   <extends>QGraphicsView</extends>
+   <header location="global">QtCharts/QtCharts</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

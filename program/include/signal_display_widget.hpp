@@ -2,6 +2,8 @@
 #define SIGNAL_PROCESSING_SIGNAL_DISPLAY_WIDGET_HPP
 
 #include <QWidget>
+#include "signal.hpp"
+#include <QString>
 
 
 QT_BEGIN_NAMESPACE
@@ -18,6 +20,7 @@ public:
 
 private:
     Ui::SignalDisplayWidget *ui;
+    void plotSignal(const cps::Signal& signal, const QString& signalName) const;
 
 private slots:
     void on_comboBox_currentTextChanged(const QString& text);
