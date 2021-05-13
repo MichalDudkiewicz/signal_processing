@@ -18,6 +18,9 @@ public:
 
 private:
     Ui::SignalDisplayWidget *ui;
+
+private slots:
+    void on_comboBox_currentTextChanged(const QString& text);
 };
 
 

@@ -1,6 +1,7 @@
 #include "signal.hpp"
 #include "signal_sampler.hpp"
 #include <cmath>
+#include <sstream>
 #include "custom_signal.hpp"
 #include "utils.hpp"
 
@@ -243,5 +244,15 @@ namespace cps {
             }
         }
         return min;
+    }
+
+    std::string Signal::stringProperties() const {
+        std::ostringstream os;
+        os << "mean value: " << mean() << '\n'
+        << "abs mean value: " << absMean() << '\n'
+        << "rms: " << rms() << '\n'
+        << "variance: " << variance() << '\n'
+        << "mean power: " << meanPower() << '\n';
+        return os.str();
     }
 }

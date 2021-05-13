@@ -57,6 +57,8 @@ namespace cps
 
         void serialize(std::ostream &stream) const;
 
+        std::string stringProperties() const;
+
         friend std::ostream& operator<<(std::ostream& os, const Signal& signal);
 
     private:
