@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.17)
 project(library CXX)
 
-find_package(Boost 1.65.1 COMPONENTS serialization REQUIRED)
-
 add_library(library
         src/signal.cpp
         src/unit_impulse_signal.cpp
@@ -24,5 +22,4 @@ add_library(library
         src/utils.cpp
         )
 
-target_include_directories(library PUBLIC include ${Boost_INCLUDE_DIRS})
-target_link_libraries(library ${Boost_LIBRARIES})
+target_include_directories(library PUBLIC include)

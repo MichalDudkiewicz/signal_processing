@@ -34,7 +34,7 @@ namespace cps {
         double y;
         double amplitude = 0;
         double x = mInitialTimeSec;
-        const double deltaX = mDurationSec / (double)numberOfSamples;
+        const double deltaX = mDurationSec / ((double)numberOfSamples - 1.f);
         while (istream)
         {
             istream.read(reinterpret_cast<char*>(&y), sizeof y);
