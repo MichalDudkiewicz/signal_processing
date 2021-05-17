@@ -35,7 +35,7 @@ namespace cps {
         double amplitude = 0;
         double x = mInitialTimeSec;
         const double deltaX = mDurationSec / ((double)numberOfSamples - 1.f);
-        while (istream)
+        while (x <= mDurationSec)
         {
             istream.read(reinterpret_cast<char*>(&y), sizeof y);
             mData.x.push_back(x);
