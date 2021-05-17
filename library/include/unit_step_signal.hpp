@@ -9,7 +9,7 @@ namespace cps {
         UnitStepSignal(double amplitude, double initialTimeSec, double durationSec, int stepTimeSec);
 
     public:
-        double value(double x) const override;
+        double value(double x) override;
 
     private:
         int mStepTimeSec;

@@ -7,7 +7,7 @@ namespace cps {
 
     }
 
-    double SymmetricalRectangularSignal::value(double x) const {
+    double SymmetricalRectangularSignal::value(double x) {
         return RectangularSignal::value(x) == 0 ? -mAmplitude : mAmplitude;
     }
 

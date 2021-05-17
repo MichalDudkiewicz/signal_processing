@@ -21,7 +21,7 @@ public:
 
 private:
     Ui::SignalDisplayWidget *ui;
-    void plotSignal(const cps::Signal& signal, const QString& signalName) const;
+    void plotSignal(cps::Signal& signal, const QString& signalName) const;
 
 private slots:
     void on_comboBox_currentTextChanged(const QString& text);

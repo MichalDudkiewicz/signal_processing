@@ -20,13 +20,13 @@ namespace cps {
         return mInitialTimeSec;
     }
 
-    SignalData Signal::data() const
+    SignalData Signal::data()
     {
         SignalSampler signalSampler(mSamplingFrequency);
         return signalSampler.sample(*this);
     }
 
-    double Signal::mean() const {
+    double Signal::mean() {
         double sum = 0;
         const auto data = Signal::data();
         const unsigned int size = data.x.size();
@@ -36,7 +36,7 @@ namespace cps {
         return roundTo5(sum / size);
     }
 
-    double Signal::absMean() const {
+    double Signal::absMean() {
         double sum = 0;
         const auto data = Signal::data();
         const unsigned int size = data.x.size();
@@ -46,11 +46,11 @@ namespace cps {
         return roundTo5(sum / size);
     }
 
-    double Signal::rms() const {
+    double Signal::rms() {
         return roundTo5(sqrt(meanPower()));
     }
 
-    double Signal::variance() const {
+    double Signal::variance() {
         double mean = Signal::mean();
         double sum = 0;
         const auto data = Signal::data();
@@ -61,7 +61,7 @@ namespace cps {
         return roundTo5(sum / size);
     }
 
-    double Signal::meanPower() const {
+    double Signal::meanPower() {
         double sum = 0;
         const auto data = Signal::data();
         const unsigned int size = data.x.size();
@@ -75,7 +75,7 @@ namespace cps {
         mSamplingFrequency = samplingFrequency;
     }
 
-    CustomSignal Signal::operator*(const Signal& signal) const
+    CustomSignal Signal::operator*(Signal& signal)
     {
         if (signal.mSamplingFrequency == mSamplingFrequency && signal.initialTime() == mInitialTimeSec && signal.duration() == mDurationSec)
         {
@@ -98,7 +98,7 @@ namespace cps {
         throw std::runtime_error("incorrect signals multiplied");
     }
 
-    CustomSignal Signal::operator-(const Signal& signal) const
+    CustomSignal Signal::operator-(Signal& signal)
     {
         if (signal.mSamplingFrequency == mSamplingFrequency && signal.initialTime() == mInitialTimeSec && signal.duration() == mDurationSec)
         {
@@ -121,7 +121,7 @@ namespace cps {
         throw std::runtime_error("incorrect signals substracted");
     }
 
-    CustomSignal Signal::operator+(const Signal& signal) const
+    CustomSignal Signal::operator+(Signal& signal)
     {
         if (signal.mSamplingFrequency == mSamplingFrequency && signal.initialTime() == mInitialTimeSec && signal.duration() == mDurationSec)
         {
@@ -144,7 +144,7 @@ namespace cps {
         throw std::runtime_error("incorrect signals added");
     }
 
-    CustomSignal Signal::operator/(const Signal& signal) const
+    CustomSignal Signal::operator/(Signal& signal)
     {
         if (signal.mSamplingFrequency == mSamplingFrequency && signal.initialTime() == mInitialTimeSec && signal.duration() == mDurationSec)
         {
@@ -167,7 +167,7 @@ namespace cps {
         throw std::runtime_error("incorrect signals divided");
     }
 
-    void Signal::serialize(std::ostream &stream) const {
+    void Signal::serialize(std::ostream &stream) {
         stream.write(reinterpret_cast<const char*>(&mInitialTimeSec), sizeof mInitialTimeSec);
         stream.write(reinterpret_cast<const char*>(&mSamplingFrequency), sizeof mSamplingFrequency);
         const auto dataY = data().y;
@@ -179,7 +179,7 @@ namespace cps {
         }
     }
 
-    std::ostream &operator<<(std::ostream &os, const Signal &signal) {
+    std::ostream &operator<<(std::ostream &os, Signal &signal) {
         const auto data = signal.data();
         os << "Initial time: " << signal.mInitialTimeSec << '\n'
         << "Sampling frequency: " << signal.mSamplingFrequency << '\n'
@@ -192,7 +192,7 @@ namespace cps {
         return os;
     }
 
-    HistogramData Signal::histogramData(unsigned int numberOfIntervals) const {
+    HistogramData Signal::histogramData(unsigned int numberOfIntervals) {
         const auto dataCopy = data();
         const double min = minValue();
         const double max = maxValue();
@@ -218,7 +218,7 @@ namespace cps {
         return histogramData;
     }
 
-    double Signal::maxValue() const {
+    double Signal::maxValue() {
         const auto dataCopy = data();
         double max = dataCopy.y.front();
         for (int i = 1; i<=dataCopy.y.size(); i++)
@@ -232,7 +232,7 @@ namespace cps {
         return max;
     }
 
-    double Signal::minValue() const {
+    double Signal::minValue() {
         const auto dataCopy = data();
         double min = dataCopy.y.front();
         for (int i = 1; i<=dataCopy.y.size(); i++)
@@ -246,7 +246,7 @@ namespace cps {
         return min;
     }
 
-    std::string Signal::stringProperties() const {
+    std::string Signal::stringProperties() {
         std::ostringstream os;
         os << "mean value: " << mean() << '\n'
         << "abs mean value: " << absMean() << '\n'

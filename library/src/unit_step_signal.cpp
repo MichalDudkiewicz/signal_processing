@@ -2,7 +2,7 @@
 
 namespace cps {
 
-    double UnitStepSignal::value(double x) const {
+    double UnitStepSignal::value(double x) {
         if (x > mStepTimeSec)
         {
             return mAmplitude;

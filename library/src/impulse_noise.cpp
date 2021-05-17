@@ -1,5 +1,6 @@
 #include "impulse_noise.hpp"
 #include <cmath>
+#include <algorithm>
 
 namespace cps {
 
@@ -8,13 +9,31 @@ namespace cps {
 
     }
 
-    double ImpulseNoise::value(double x) const
+    double ImpulseNoise::value(double x)
     {
-        const double random = rand() / (RAND_MAX + 1.);
-        if (random <= mProbability) {
-            return mAmplitude;
-        } else {
-            return 0;
+        const auto p = std::find (mData.x.begin(), mData.x.end(), x);
+        if (p != mData.x.end())
+        {
+            for (int i = 0; i<mData.x.size(); i++)
+            {
+                if (mData.x[i] == x)
+                {
+                    return mData.y[i];
+                }
+            }
+            throw std::runtime_error("out of range");
+        }
+        else
+        {
+            const double random = rand() / (RAND_MAX + 1.);
+            mData.x.push_back(x);
+            if (random <= mProbability) {
+                mData.y.push_back(mAmplitude);
+                return mAmplitude;
+            } else {
+                mData.y.push_back(0);
+                return 0;
+            }
         }
     }
 }

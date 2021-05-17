@@ -9,7 +9,7 @@ namespace cps {
         RectifiedSinusoidalSignal(double amplitude, double initialTimeSec, double durationSec, double period);
 
     public:
-        double value(double x) const override;
+        double value(double x) override;
     };
 }
 

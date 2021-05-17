@@ -9,10 +9,11 @@ namespace cps {
         ImpulseNoise(double amplitude, double initialTimeSec, double durationSec, int samplingFrequency, double probability);
 
     public:
-        double value(double x) const override;
+        double value(double x) override;
 
     private:
         double mProbability;
+        SignalData mData;
     };
 }
 

@@ -11,7 +11,7 @@ namespace cps {
 
     }
 
-    double HalfRectifiedSinusoidalSignal::value(double x) const {
+    double HalfRectifiedSinusoidalSignal::value(double x) {
         const double value = mAmplitude / 2 * ( sin(2 * M_PI / mPeriod * (x - mInitialTimeSec)) + fabs(sin(2 * M_PI / mPeriod * (x - mInitialTimeSec))));
         return value;
     }

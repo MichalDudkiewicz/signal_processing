@@ -8,7 +8,7 @@ namespace cps {
     public:
         SinusoidalSignal(double amplitude, double initialTimeSec, double durationSec, double period);
 
-        double value(double x) const override;
+        double value(double x) override;
     };
 }
 

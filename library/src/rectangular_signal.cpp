@@ -9,7 +9,7 @@ namespace cps {
 
     }
 
-    double RectangularSignal::value(double x) const {
+    double RectangularSignal::value(double x) {
         if (((x - mInitialTimeSec) / mPeriod) - floor((x - mInitialTimeSec) / mPeriod) < mKw)
         {
             return mAmplitude;

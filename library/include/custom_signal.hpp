@@ -13,9 +13,9 @@ namespace cps {
         CustomSignal();
 
     public:
-        double value(double x) const override;
+        double value(double x) override;
 
-        SignalData data() const override;
+        SignalData data() override;
 
         void unserialize(std::istream& istr);
 

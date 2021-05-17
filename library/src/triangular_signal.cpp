@@ -8,7 +8,7 @@ namespace cps {
 
     }
 
-    double TriangularSignal::value(double x) const {
+    double TriangularSignal::value(double x) {
         const double termPosition = ((x - mInitialTimeSec) / mPeriod) - floor((x - mInitialTimeSec) / mPeriod);
         if (termPosition < mKw)
         {

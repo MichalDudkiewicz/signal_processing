@@ -9,7 +9,7 @@ namespace cps {
 
     }
 
-    double RectifiedSinusoidalSignal::value(double x) const
+    double RectifiedSinusoidalSignal::value(double x)
     {
         const double value = mAmplitude * fabs(sin(2 * M_PI / mPeriod * (x - mInitialTimeSec)));
         return value;

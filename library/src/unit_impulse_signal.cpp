@@ -2,7 +2,7 @@
 
 namespace cps {
 
-    double UnitImpulseSignal::value(double x) const {
+    double UnitImpulseSignal::value(double x) {
         if(x == mImpulseSampleX)
         {
             return mAmplitude;

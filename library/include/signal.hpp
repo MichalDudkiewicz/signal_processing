@@ -25,7 +25,7 @@ namespace cps
         Signal(double amplitude, double initialTimeSec, double durationSec);
 
     public:
-        virtual double value(double x) const = 0;
+        virtual double value(double x) = 0;
 
         double duration() const;
 
@@ -33,40 +33,40 @@ namespace cps
 
         double amplitude() const;
 
-        virtual SignalData data() const;
+        virtual SignalData data();
 
-        HistogramData histogramData(unsigned int numberOfIntervals) const;
+        HistogramData histogramData(unsigned int numberOfIntervals);
 
-        double meanPower() const;
+        double meanPower();
 
-        double variance() const;
+        double variance();
 
-        double absMean() const;
+        double absMean();
 
-        double mean() const;
+        double mean();
 
-        double rms() const;
+        double rms();
 
         void setSamplingFrequency(int samplingFrequency);
 
-        CustomSignal operator*(const Signal& signal) const;
+        CustomSignal operator*(Signal& signal);
 
-        CustomSignal operator/(const Signal& signal) const;
+        CustomSignal operator/(Signal& signal);
 
-        CustomSignal operator+(const Signal& signal) const;
+        CustomSignal operator+(Signal& signal);
 
-        CustomSignal operator-(const Signal& signal) const;
+        CustomSignal operator-(Signal& signal);
 
-        void serialize(std::ostream &stream) const;
+        void serialize(std::ostream &stream);
 
-        std::string stringProperties() const;
+        std::string stringProperties();
 
-        friend std::ostream& operator<<(std::ostream& os, const Signal& signal);
+        friend std::ostream& operator<<(std::ostream& os, Signal& signal);
 
     private:
-        double maxValue() const;
+        double maxValue();
 
-        double minValue() const;
+        double minValue();
 
     protected:
         double mAmplitude;

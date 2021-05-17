@@ -9,7 +9,7 @@ namespace cps {
         SymmetricalRectangularSignal(double amplitude, double initialTimeSec, double durationSec, double period, double kw);
 
     public:
-        double value(double x) const override;
+        double value(double x) override;
 
     };
 }

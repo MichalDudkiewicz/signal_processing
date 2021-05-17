@@ -9,7 +9,10 @@ namespace cps {
         UniformDistributionNoise(double amplitude, double initialTimeSec, double durationSec);
 
     public:
-        double value(double /* x */) const override;
+        double value(double x) override;
+
+    private:
+        SignalData mData;
     };
 }
 

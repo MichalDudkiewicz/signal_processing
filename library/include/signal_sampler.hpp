@@ -16,7 +16,7 @@ namespace cps {
     public:
         explicit SignalSampler(int samplingFrequency);
 
-        SignalData sample(const Signal& signal) const;
+        SignalData sample(Signal& signal) const;
 
     private:
         int mSamplingFrequency;

@@ -5,7 +5,7 @@
 
 namespace cps {
 
-    double CustomSignal::value(double x) const {
+    double CustomSignal::value(double x) {
         for (int i = 0; i<mData.x.size(); i++)
         {
             if (mData.x[i] == x)
@@ -16,7 +16,7 @@ namespace cps {
         throw std::runtime_error("out of range");
     }
 
-    SignalData CustomSignal::data() const {
+    SignalData CustomSignal::data() {
         return mData;
     }
 

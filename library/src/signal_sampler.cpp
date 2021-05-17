@@ -9,7 +9,7 @@ namespace cps {
 
     }
 
-    SignalData SignalSampler::sample(const Signal& signal) const {
+    SignalData SignalSampler::sample(Signal& signal) const {
         double x = signal.initialTime();
         double xEnd = x + signal.duration();
 

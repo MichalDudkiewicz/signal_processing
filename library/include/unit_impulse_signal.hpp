@@ -10,7 +10,7 @@ namespace cps {
                           int impulseSampleNumber, int samplingFrequency);
 
     public:
-        double value(double x) const override;
+        double value(double x) override;
 
     private:
         double mImpulseSampleX;

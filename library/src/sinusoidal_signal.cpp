@@ -8,7 +8,7 @@ namespace cps {
 
     }
 
-    double SinusoidalSignal::value(double x) const
+    double SinusoidalSignal::value(double x)
     {
         double value = mAmplitude * sin(2 * M_PI / mPeriod * (x - mInitialTimeSec));
         return value;

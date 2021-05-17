@@ -107,7 +107,7 @@ void SignalDisplayWidget::on_comboBox_currentTextChanged(const QString& text)
     }
 }
 
-void SignalDisplayWidget::plotSignal(const cps::Signal& signal, const QString& signalName) const
+void SignalDisplayWidget::plotSignal(cps::Signal& signal, const QString& signalName) const
 {
     std::string properties = signal.stringProperties();
     ui->propertiesText->setText(QString::fromStdString(properties));
