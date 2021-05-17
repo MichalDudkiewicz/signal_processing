@@ -160,6 +160,7 @@ void SignalDisplayWidget::plotSignal(cps::Signal& signal, const QString& signalN
 
     QValueAxis *axisY = new QValueAxis();
     axisY->setRange(0,max);
+    axisY->setMinorTickCount(max - 1);
     chart->addAxis(axisY, Qt::AlignLeft);
     series->attachAxis(axisY);
 }
