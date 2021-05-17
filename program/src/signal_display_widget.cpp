@@ -70,9 +70,9 @@ void SignalDisplayWidget::on_comboBox_currentTextChanged(const QString& text)
         customSignal->unserialize(in);
         mSignalStored = std::move(customSignal);
         in.close();
-        ui->amplitudeTextEdit->setText(QString::fromStdString(std::to_string(mSignalStored->amplitude())));
-        ui->initialTimeTextEdit->setText(QString::fromStdString(std::to_string(mSignalStored->initialTime())));
-        ui->durationTextEdit->setText(QString::fromStdString(std::to_string(mSignalStored->duration())));
+        ui->amplitudeTextEdit->setText(QString::number(mSignalStored->amplitude()));
+        ui->initialTimeTextEdit->setText(QString::number(mSignalStored->initialTime()));
+        ui->durationTextEdit->setText(QString::number(mSignalStored->duration()));
     }
     else if (text == "half rectified sinusoidal" || text == "rectified sinusoidal" || text == "sinusoidal")
     {
@@ -144,72 +144,72 @@ void SignalDisplayWidget::on_createButton_clicked()
     }
     else if (text == "gaussian noise")
     {
-        cps::GaussianNoise signal(amplitude, initialTime, duration);
-        plotSignal(signal, text);
+        mSignalStored = std::make_unique<cps::GaussianNoise>(amplitude, initialTime, duration);
+        plotSignal(*mSignalStored, text);
     }
     else if (text == "half rectified sinusoidal")
     {
         const double period = ui->periodTextEdit->toPlainText().toDouble();
-        cps::HalfRectifiedSinusoidalSignal signal(amplitude, initialTime, duration, period);
-        plotSignal(signal, text);
+        mSignalStored = std::make_unique<cps::HalfRectifiedSinusoidalSignal>(amplitude, initialTime, duration, period);
+        plotSignal(*mSignalStored, text);
     }
     else if (text == "impulse noise")
     {
         const int samplingFrequency = ui->samplingFrequencyTextEdit->toPlainText().toInt();
         const double probability = ui->probabilityTextEdit->toPlainText().toDouble();
-        cps::ImpulseNoise signal(amplitude, initialTime, duration, samplingFrequency, probability);
-        plotSignal(signal, text);
+        mSignalStored = std::make_unique<cps::ImpulseNoise>(amplitude, initialTime, duration, samplingFrequency, probability);
+        plotSignal(*mSignalStored, text);
     }
     else if (text == "rectangular")
     {
         const double period = ui->periodTextEdit->toPlainText().toDouble();
         const double kw = ui->kwTextEdit->toPlainText().toDouble();
-        cps::RectangularSignal signal(amplitude, initialTime, duration, period, kw);
-        plotSignal(signal, text);
+        mSignalStored = std::make_unique<cps::RectangularSignal>(amplitude, initialTime, duration, period, kw);
+        plotSignal(*mSignalStored, text);
     }
     else if (text == "rectified sinusoidal")
     {
         const double period = ui->periodTextEdit->toPlainText().toDouble();
-        cps::RectifiedSinusoidalSignal signal(amplitude, initialTime, duration, period);
-        plotSignal(signal, text);
+        mSignalStored = std::make_unique<cps::RectifiedSinusoidalSignal>(amplitude, initialTime, duration, period);
+        plotSignal(*mSignalStored, text);
     }
     else if (text == "sinusoidal")
     {
         const double period = ui->periodTextEdit->toPlainText().toDouble();
-        cps::SinusoidalSignal signal(amplitude, initialTime, duration, period);
-        plotSignal(signal, text);
+        mSignalStored = std::make_unique<cps::SinusoidalSignal>(amplitude, initialTime, duration, period);
+        plotSignal(*mSignalStored, text);
     }
     else if (text == "symmetrical rectangular")
     {
         const double period = ui->periodTextEdit->toPlainText().toDouble();
         const double kw = ui->kwTextEdit->toPlainText().toDouble();
-        cps::SymmetricalRectangularSignal signal(amplitude, initialTime, duration, period, kw);
-        plotSignal(signal, text);
+        mSignalStored = std::make_unique<cps::SymmetricalRectangularSignal>(amplitude, initialTime, duration, period, kw);
+        plotSignal(*mSignalStored, text);
     }
     else if (text == "triangular")
     {
         const double period = ui->periodTextEdit->toPlainText().toDouble();
         const double kw = ui->kwTextEdit->toPlainText().toDouble();
-        cps::TriangularSignal signal(amplitude, initialTime, duration, period, kw);
-        plotSignal(signal, text);
+        mSignalStored = std::make_unique<cps::TriangularSignal>(amplitude, initialTime, duration, period, kw);
+        plotSignal(*mSignalStored, text);
     }
     else if (text == "uniform distribution noise")
     {
-        cps::UniformDistributionNoise signal(amplitude, initialTime, duration);
-        plotSignal(signal, text);
+        mSignalStored = std::make_unique<cps::UniformDistributionNoise>(amplitude, initialTime, duration);
+        plotSignal(*mSignalStored, text);
     }
     else if (text == "unit impulse")
     {
         const int samplingFrequency = ui->samplingFrequencyTextEdit->toPlainText().toInt();
         const int impulseSampleNumber = ui->impulseSampleNumberTextEdit->toPlainText().toInt();
-        cps::UnitImpulseSignal signal(initialTime, duration, impulseSampleNumber, samplingFrequency);
-        plotSignal(signal, text);
+        mSignalStored = std::make_unique<cps::UnitImpulseSignal>(initialTime, duration, impulseSampleNumber, samplingFrequency);
+        plotSignal(*mSignalStored, text);
     }
     else if (text == "unit step")
     {
         const int stepTimeSec = ui->stepTimeTextEdit->toPlainText().toInt();
-        cps::UnitStepSignal signal(amplitude, initialTime, duration, stepTimeSec);
-        plotSignal(signal, text);
+        mSignalStored = std::make_unique<cps::UnitStepSignal>(amplitude, initialTime, duration, stepTimeSec);
+        plotSignal(*mSignalStored, text);
     }
 }
 
@@ -219,7 +219,7 @@ void SignalDisplayWidget::on_saveButton_clicked()
     QString fileName = QFileDialog::getSaveFileName(
             this,
             tr("Save signal"),
-            dataDir.absolutePath() + "/newSignal.json",
+            dataDir.absolutePath() + "/newSignal.bin",
             tr("All files (*.bin)"));
     if (fileName.isEmpty())
         return;
