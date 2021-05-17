@@ -15,6 +15,7 @@
 #include "rectified_sinusoidal_signal.hpp"
 #include "custom_signal.hpp"
 #include <fstream>
+#include "utils.hpp"
 
 SignalDisplayWidget::SignalDisplayWidget(QWidget *parent) :
         QWidget(parent), ui(new Ui::SignalDisplayWidget) {
@@ -129,11 +130,48 @@ void SignalDisplayWidget::plotSignal(cps::Signal& signal, const QString& signalN
     ui->chartView->chart()->createDefaultAxes();
     ui->chartView->chart()->setTitle(signalName);
     ui->chartView->chart()->legend()->setVisible(false);
+
+    // histogram
+    const unsigned int numberOfIntervals = 5;
+    const auto histogramData = signal.histogramData(numberOfIntervals);
+    QBarSet *set = new QBarSet("histogram");
+    for (const auto& occurence : histogramData.occurrences)
+    {
+        *set << occurence;
+    }
+    QBarSeries *histogramSeries = new QBarSeries();
+    histogramSeries->append(set);
+    const auto& chart = ui->histogramView->chart();
+    chart->addSeries(histogramSeries);
+
+    QStringList categories;
+    for(const auto& interval : histogramData.intervals)
+    {
+        categories << QString::number(cps::roundTo2(interval.first)) + ':' + QString::number(cps::roundTo2(interval.second));
+    }
+
+    QBarCategoryAxis *axisX = new QBarCategoryAxis();
+    axisX->append(categories);
+    chart->addAxis(axisX, Qt::AlignBottom);
+    series->attachAxis(axisX);
+
+    QValueAxis *axisY = new QValueAxis();
+    chart->addAxis(axisY, Qt::AlignLeft);
+    series->attachAxis(axisY);
 }
 
 void SignalDisplayWidget::on_createButton_clicked()
 {
     ui->chartView->chart()->removeAllSeries();
+
+    const auto& histogramChart = ui->histogramView->chart();
+    const auto& axes = histogramChart->axes();
+    for (const auto& axis : axes)
+    {
+        histogramChart->removeAxis(axis);
+    }
+    histogramChart->removeAllSeries();
+
     const double amplitude = ui->amplitudeTextEdit->toPlainText().toDouble();
     const double initialTime = ui->initialTimeTextEdit->toPlainText().toDouble();
     const double duration = ui->durationTextEdit->toPlainText().toDouble();

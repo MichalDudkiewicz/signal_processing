@@ -8,4 +8,9 @@ namespace cps
     {
         return round( value * 100000.0 ) / 100000.0;
     }
+
+    double roundTo2(double value)
+    {
+        return round( value * 100.0 ) / 100.0;
+    }
 }
