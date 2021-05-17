@@ -60,9 +60,9 @@ void SignalDisplayWidget::on_comboBox_currentTextChanged(const QString& text)
 
     if (text == "custom")
     {
-        QDir sampleResponsesDir("../../program/data");
+        QDir dataDir("../../program/data");
         QString fileName = QFileDialog::getOpenFileName(
-                this, "open", sampleResponsesDir.absolutePath(), tr("All files (*.bin)"));
+                this, "open", dataDir.absolutePath(), tr("All files (*.bin)"));
 
         std::fstream in;
         in.open(fileName.toStdString(), std::ios::in | std::ios::binary);
@@ -210,5 +210,26 @@ void SignalDisplayWidget::on_createButton_clicked()
         const int stepTimeSec = ui->stepTimeTextEdit->toPlainText().toInt();
         cps::UnitStepSignal signal(amplitude, initialTime, duration, stepTimeSec);
         plotSignal(signal, text);
+    }
+}
+
+void SignalDisplayWidget::on_saveButton_clicked()
+{
+    QDir dataDir("../../program/data");
+    QString fileName = QFileDialog::getSaveFileName(
+            this,
+            tr("Save signal"),
+            dataDir.absolutePath() + "/newSignal.json",
+            tr("All files (*.bin)"));
+    if (fileName.isEmpty())
+        return;
+    else
+    {
+        std::ofstream out;
+        out.open( fileName.toStdString(),
+                  std::ios::out | std::ios::trunc | std::ios::binary );
+
+        mSignalStored->serialize(out);
+        out.close();
     }
 }
