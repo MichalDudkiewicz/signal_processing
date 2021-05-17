@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "signal.hpp"
 #include <QString>
+#include <memory>
 
 
 QT_BEGIN_NAMESPACE
@@ -25,6 +26,9 @@ private:
 private slots:
     void on_comboBox_currentTextChanged(const QString& text);
     void on_createButton_clicked();
+
+private:
+    std::unique_ptr<cps::Signal> mSignalStored;
 };
 
 

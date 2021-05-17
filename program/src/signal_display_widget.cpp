@@ -13,6 +13,8 @@
 #include "unit_impulse_signal.hpp"
 #include "unit_step_signal.hpp"
 #include "rectified_sinusoidal_signal.hpp"
+#include "custom_signal.hpp"
+#include <fstream>
 
 SignalDisplayWidget::SignalDisplayWidget(QWidget *parent) :
         QWidget(parent), ui(new Ui::SignalDisplayWidget) {
@@ -56,7 +58,20 @@ void SignalDisplayWidget::on_comboBox_currentTextChanged(const QString& text)
     ui->impulseSampleNumberLabel->hide();
     ui->stepTimeLabel->hide();
 
-    if (text == "half rectified sinusoidal" || text == "rectified sinusoidal" || text == "sinusoidal")
+    if (text == "custom")
+    {
+        QDir sampleResponsesDir("../../program/data");
+        QString fileName = QFileDialog::getOpenFileName(
+                this, "open", sampleResponsesDir.absolutePath(), tr("All files (*.bin)"));
+
+        std::fstream in;
+        in.open(fileName.toStdString(), std::ios::in | std::ios::binary);
+        auto customSignal = std::make_unique<cps::CustomSignal>();
+        customSignal->unserialize(in);
+        mSignalStored = std::move(customSignal);
+        in.close();
+    }
+    else if (text == "half rectified sinusoidal" || text == "rectified sinusoidal" || text == "sinusoidal")
     {
         ui->periodTextEdit->show();
         ui->periodLabel->show();
@@ -120,7 +135,11 @@ void SignalDisplayWidget::on_createButton_clicked()
     const double initialTime = ui->initialTimeTextEdit->toPlainText().toDouble();
     const double duration = ui->durationTextEdit->toPlainText().toDouble();
     const auto text = ui->comboBox->currentText();
-    if (text == "gaussian noise")
+    if (text == "custom")
+    {
+        plotSignal(*mSignalStored, text);
+    }
+    else if (text == "gaussian noise")
     {
         cps::GaussianNoise signal(amplitude, initialTime, duration);
         plotSignal(signal, text);
