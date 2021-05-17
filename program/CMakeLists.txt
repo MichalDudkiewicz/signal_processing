@@ -19,6 +19,8 @@ add_executable(${PROJECT_NAME}
         include/main_window.hpp
         src/signal_display_widget.cpp
         include/signal_display_widget.hpp
+        src/result_signal_dialog.cpp
+        include/result_signal_dialog.hpp
         )
 
 if (NOT CMAKE_PREFIX_PATH)

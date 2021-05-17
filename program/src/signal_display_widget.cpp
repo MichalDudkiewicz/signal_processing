@@ -21,8 +21,8 @@ SignalDisplayWidget::SignalDisplayWidget(QWidget *parent) :
         QWidget(parent), ui(new Ui::SignalDisplayWidget) {
     ui->setupUi(this);
     std::vector<QString> possibleSignals = {
-            "custom",
             "gaussian noise",
+            "custom",
             "half rectified sinusoidal",
             "impulse noise",
             "rectangular",
@@ -59,23 +59,7 @@ void SignalDisplayWidget::on_comboBox_currentTextChanged(const QString& text)
     ui->impulseSampleNumberLabel->hide();
     ui->stepTimeLabel->hide();
 
-    if (text == "custom")
-    {
-        QDir dataDir("../../program/data");
-        QString fileName = QFileDialog::getOpenFileName(
-                this, "open", dataDir.absolutePath(), tr("All files (*.bin)"));
-
-        std::fstream in;
-        in.open(fileName.toStdString(), std::ios::in | std::ios::binary);
-        auto customSignal = std::make_unique<cps::CustomSignal>();
-        customSignal->unserialize(in);
-        mSignalStored = std::move(customSignal);
-        in.close();
-        ui->amplitudeTextEdit->setText(QString::number(mSignalStored->amplitude()));
-        ui->initialTimeTextEdit->setText(QString::number(mSignalStored->initialTime()));
-        ui->durationTextEdit->setText(QString::number(mSignalStored->duration()));
-    }
-    else if (text == "half rectified sinusoidal" || text == "rectified sinusoidal" || text == "sinusoidal")
+    if (text == "half rectified sinusoidal" || text == "rectified sinusoidal" || text == "sinusoidal")
     {
         ui->periodTextEdit->show();
         ui->periodLabel->show();
@@ -201,75 +185,88 @@ void SignalDisplayWidget::on_createButton_clicked()
     const auto text = ui->comboBox->currentText();
     if (text == "custom")
     {
+        QDir dataDir("../../program/data");
+        QString fileName = QFileDialog::getOpenFileName(
+                this, "open", dataDir.absolutePath(), tr("All files (*.bin)"));
+
+        std::fstream in;
+        in.open(fileName.toStdString(), std::ios::in | std::ios::binary);
+        auto customSignal = std::make_shared<cps::CustomSignal>();
+        customSignal->unserialize(in);
+        mSignalStored = std::move(customSignal);
+        in.close();
+        ui->amplitudeTextEdit->setText(QString::number(mSignalStored->amplitude()));
+        ui->initialTimeTextEdit->setText(QString::number(mSignalStored->initialTime()));
+        ui->durationTextEdit->setText(QString::number(mSignalStored->duration()));
         plotSignal(*mSignalStored, text);
     }
     else if (text == "gaussian noise")
     {
-        mSignalStored = std::make_unique<cps::GaussianNoise>(amplitude, initialTime, duration);
+        mSignalStored = std::make_shared<cps::GaussianNoise>(amplitude, initialTime, duration);
         plotSignal(*mSignalStored, text);
     }
     else if (text == "half rectified sinusoidal")
     {
         const double period = ui->periodTextEdit->toPlainText().toDouble();
-        mSignalStored = std::make_unique<cps::HalfRectifiedSinusoidalSignal>(amplitude, initialTime, duration, period);
+        mSignalStored = std::make_shared<cps::HalfRectifiedSinusoidalSignal>(amplitude, initialTime, duration, period);
         plotSignal(*mSignalStored, text);
     }
     else if (text == "impulse noise")
     {
         const int samplingFrequency = ui->samplingFrequencyTextEdit->toPlainText().toInt();
         const double probability = ui->probabilityTextEdit->toPlainText().toDouble();
-        mSignalStored = std::make_unique<cps::ImpulseNoise>(amplitude, initialTime, duration, samplingFrequency, probability);
+        mSignalStored = std::make_shared<cps::ImpulseNoise>(amplitude, initialTime, duration, samplingFrequency, probability);
         plotSignal(*mSignalStored, text);
     }
     else if (text == "rectangular")
     {
         const double period = ui->periodTextEdit->toPlainText().toDouble();
         const double kw = ui->kwTextEdit->toPlainText().toDouble();
-        mSignalStored = std::make_unique<cps::RectangularSignal>(amplitude, initialTime, duration, period, kw);
+        mSignalStored = std::make_shared<cps::RectangularSignal>(amplitude, initialTime, duration, period, kw);
         plotSignal(*mSignalStored, text);
     }
     else if (text == "rectified sinusoidal")
     {
         const double period = ui->periodTextEdit->toPlainText().toDouble();
-        mSignalStored = std::make_unique<cps::RectifiedSinusoidalSignal>(amplitude, initialTime, duration, period);
+        mSignalStored = std::make_shared<cps::RectifiedSinusoidalSignal>(amplitude, initialTime, duration, period);
         plotSignal(*mSignalStored, text);
     }
     else if (text == "sinusoidal")
     {
         const double period = ui->periodTextEdit->toPlainText().toDouble();
-        mSignalStored = std::make_unique<cps::SinusoidalSignal>(amplitude, initialTime, duration, period);
+        mSignalStored = std::make_shared<cps::SinusoidalSignal>(amplitude, initialTime, duration, period);
         plotSignal(*mSignalStored, text);
     }
     else if (text == "symmetrical rectangular")
     {
         const double period = ui->periodTextEdit->toPlainText().toDouble();
         const double kw = ui->kwTextEdit->toPlainText().toDouble();
-        mSignalStored = std::make_unique<cps::SymmetricalRectangularSignal>(amplitude, initialTime, duration, period, kw);
+        mSignalStored = std::make_shared<cps::SymmetricalRectangularSignal>(amplitude, initialTime, duration, period, kw);
         plotSignal(*mSignalStored, text);
     }
     else if (text == "triangular")
     {
         const double period = ui->periodTextEdit->toPlainText().toDouble();
         const double kw = ui->kwTextEdit->toPlainText().toDouble();
-        mSignalStored = std::make_unique<cps::TriangularSignal>(amplitude, initialTime, duration, period, kw);
+        mSignalStored = std::make_shared<cps::TriangularSignal>(amplitude, initialTime, duration, period, kw);
         plotSignal(*mSignalStored, text);
     }
     else if (text == "uniform distribution noise")
     {
-        mSignalStored = std::make_unique<cps::UniformDistributionNoise>(amplitude, initialTime, duration);
+        mSignalStored = std::make_shared<cps::UniformDistributionNoise>(amplitude, initialTime, duration);
         plotSignal(*mSignalStored, text);
     }
     else if (text == "unit impulse")
     {
         const int samplingFrequency = ui->samplingFrequencyTextEdit->toPlainText().toInt();
         const int impulseSampleNumber = ui->impulseSampleNumberTextEdit->toPlainText().toInt();
-        mSignalStored = std::make_unique<cps::UnitImpulseSignal>(initialTime, duration, impulseSampleNumber, samplingFrequency);
+        mSignalStored = std::make_shared<cps::UnitImpulseSignal>(initialTime, duration, impulseSampleNumber, samplingFrequency);
         plotSignal(*mSignalStored, text);
     }
     else if (text == "unit step")
     {
         const int stepTimeSec = ui->stepTimeTextEdit->toPlainText().toInt();
-        mSignalStored = std::make_unique<cps::UnitStepSignal>(amplitude, initialTime, duration, stepTimeSec);
+        mSignalStored = std::make_shared<cps::UnitStepSignal>(amplitude, initialTime, duration, stepTimeSec);
         plotSignal(*mSignalStored, text);
     }
 }
@@ -293,4 +290,18 @@ void SignalDisplayWidget::on_saveButton_clicked()
         mSignalStored->serialize(out);
         out.close();
     }
+}
+
+std::shared_ptr<cps::Signal> SignalDisplayWidget::signal() const {
+    return mSignalStored;
+}
+
+void SignalDisplayWidget::setSignal(const std::shared_ptr<cps::Signal> &newSignal) {
+    mSignalStored = newSignal;
+    ui->comboBox->setCurrentText("custom");
+    ui->intervalsNumberTextEdit->setText("10");
+    ui->amplitudeTextEdit->setText(QString::number(mSignalStored->amplitude()));
+    ui->initialTimeTextEdit->setText(QString::number(mSignalStored->initialTime()));
+    ui->durationTextEdit->setText(QString::number(mSignalStored->duration()));
+    plotSignal(*mSignalStored, "custom");
 }

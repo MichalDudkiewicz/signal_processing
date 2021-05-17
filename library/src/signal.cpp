@@ -75,7 +75,7 @@ namespace cps {
         mSamplingFrequency = samplingFrequency;
     }
 
-    CustomSignal Signal::operator*(Signal& signal)
+    std::shared_ptr<CustomSignal> Signal::operator*(Signal& signal)
     {
         if (signal.mSamplingFrequency == mSamplingFrequency && signal.initialTime() == mInitialTimeSec && signal.duration() == mDurationSec)
         {
@@ -92,13 +92,12 @@ namespace cps {
                     amplitude = fabs(newData.y[i]);
                 }
             }
-            CustomSignal customSignal(amplitude, mInitialTimeSec, mDurationSec, newData);
-            return customSignal;
+            return std::make_shared<CustomSignal>(amplitude, mInitialTimeSec, mDurationSec, newData);
         }
         throw std::runtime_error("incorrect signals multiplied");
     }
 
-    CustomSignal Signal::operator-(Signal& signal)
+    std::shared_ptr<CustomSignal> Signal::operator-(Signal& signal)
     {
         if (signal.mSamplingFrequency == mSamplingFrequency && signal.initialTime() == mInitialTimeSec && signal.duration() == mDurationSec)
         {
@@ -115,13 +114,12 @@ namespace cps {
                     amplitude = fabs(newData.y[i]);
                 }
             }
-            CustomSignal customSignal(amplitude, mInitialTimeSec, mDurationSec, newData);
-            return customSignal;
+            return std::make_shared<CustomSignal>(amplitude, mInitialTimeSec, mDurationSec, newData);
         }
         throw std::runtime_error("incorrect signals substracted");
     }
 
-    CustomSignal Signal::operator+(Signal& signal)
+    std::shared_ptr<CustomSignal> Signal::operator+(Signal& signal)
     {
         if (signal.mSamplingFrequency == mSamplingFrequency && signal.initialTime() == mInitialTimeSec && signal.duration() == mDurationSec)
         {
@@ -138,13 +136,12 @@ namespace cps {
                     amplitude = fabs(newData.y[i]);
                 }
             }
-            CustomSignal customSignal(amplitude, mInitialTimeSec, mDurationSec, newData);
-            return customSignal;
+            return std::make_shared<CustomSignal>(amplitude, mInitialTimeSec, mDurationSec, newData);
         }
         throw std::runtime_error("incorrect signals added");
     }
 
-    CustomSignal Signal::operator/(Signal& signal)
+    std::shared_ptr<CustomSignal> Signal::operator/(Signal& signal)
     {
         if (signal.mSamplingFrequency == mSamplingFrequency && signal.initialTime() == mInitialTimeSec && signal.duration() == mDurationSec)
         {
@@ -161,8 +158,7 @@ namespace cps {
                     amplitude = fabs(newData.y[i]);
                 }
             }
-            CustomSignal customSignal(amplitude, mInitialTimeSec, mDurationSec, newData);
-            return customSignal;
+            return std::make_shared<CustomSignal>(amplitude, mInitialTimeSec, mDurationSec, newData);
         }
         throw std::runtime_error("incorrect signals divided");
     }

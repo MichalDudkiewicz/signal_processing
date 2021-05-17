@@ -49,13 +49,13 @@ namespace cps
 
         void setSamplingFrequency(int samplingFrequency);
 
-        CustomSignal operator*(Signal& signal);
+        std::shared_ptr<CustomSignal> operator*(Signal& signal);
 
-        CustomSignal operator/(Signal& signal);
+        std::shared_ptr<CustomSignal> operator/(Signal& signal);
 
-        CustomSignal operator+(Signal& signal);
+        std::shared_ptr<CustomSignal> operator+(Signal& signal);
 
-        CustomSignal operator-(Signal& signal);
+        std::shared_ptr<CustomSignal> operator-(Signal& signal);
 
         void serialize(std::ostream &stream);
 

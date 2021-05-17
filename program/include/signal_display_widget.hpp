@@ -19,6 +19,11 @@ public:
 
     ~SignalDisplayWidget() override;
 
+public:
+    std::shared_ptr<cps::Signal> signal() const;
+
+    void setSignal(const std::shared_ptr<cps::Signal>& newSignal);
+
 private:
     Ui::SignalDisplayWidget *ui;
     void plotSignal(cps::Signal& signal, const QString& signalName) const;
@@ -29,7 +34,7 @@ private slots:
     void on_saveButton_clicked();
 
 private:
-    std::unique_ptr<cps::Signal> mSignalStored;
+    std::shared_ptr<cps::Signal> mSignalStored;
 };
 
 
