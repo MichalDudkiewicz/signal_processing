@@ -135,9 +135,12 @@ void SignalDisplayWidget::plotSignal(cps::Signal& signal, const QString& signalN
     const unsigned int numberOfIntervals = 5;
     const auto histogramData = signal.histogramData(numberOfIntervals);
     QBarSet *set = new QBarSet("histogram");
+    unsigned int max = 0;
     for (const auto& occurence : histogramData.occurrences)
     {
         *set << occurence;
+        if (occurence > max)
+            max = occurence;
     }
     QBarSeries *histogramSeries = new QBarSeries();
     histogramSeries->append(set);
@@ -156,6 +159,7 @@ void SignalDisplayWidget::plotSignal(cps::Signal& signal, const QString& signalN
     series->attachAxis(axisX);
 
     QValueAxis *axisY = new QValueAxis();
+    axisY->setRange(0,max);
     chart->addAxis(axisY, Qt::AlignLeft);
     series->attachAxis(axisY);
 }
