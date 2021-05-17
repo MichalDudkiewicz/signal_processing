@@ -255,4 +255,8 @@ namespace cps {
         << "mean power: " << meanPower() << '\n';
         return os.str();
     }
+
+    double Signal::amplitude() const {
+        return mAmplitude;
+    }
 }

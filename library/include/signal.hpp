@@ -31,6 +31,8 @@ namespace cps
 
         double initialTime() const;
 
+        double amplitude() const;
+
         virtual SignalData data() const;
 
         HistogramData histogramData(unsigned int numberOfIntervals) const;

@@ -70,6 +70,9 @@ void SignalDisplayWidget::on_comboBox_currentTextChanged(const QString& text)
         customSignal->unserialize(in);
         mSignalStored = std::move(customSignal);
         in.close();
+        ui->amplitudeTextEdit->setText(QString::fromStdString(std::to_string(mSignalStored->amplitude())));
+        ui->initialTimeTextEdit->setText(QString::fromStdString(std::to_string(mSignalStored->initialTime())));
+        ui->durationTextEdit->setText(QString::fromStdString(std::to_string(mSignalStored->duration())));
     }
     else if (text == "half rectified sinusoidal" || text == "rectified sinusoidal" || text == "sinusoidal")
     {
