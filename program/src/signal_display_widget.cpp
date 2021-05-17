@@ -132,7 +132,7 @@ void SignalDisplayWidget::plotSignal(cps::Signal& signal, const QString& signalN
     ui->chartView->chart()->legend()->setVisible(false);
 
     // histogram
-    const unsigned int numberOfIntervals = 5;
+    const unsigned int numberOfIntervals = ui->intervalsNumberTextEdit->toPlainText().toUInt();
     const auto histogramData = signal.histogramData(numberOfIntervals);
     QBarSet *set = new QBarSet("histogram");
     unsigned int max = 0;

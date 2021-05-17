@@ -199,7 +199,7 @@ namespace cps {
         const double deltaY = (max - min) / numberOfIntervals;
         double y = min;
         HistogramData histogramData;
-        while (y < max)
+        while (y < max - 0.00001)
         {
             const double yEnd = y + deltaY;
             histogramData.intervals.emplace_back(y, yEnd);
