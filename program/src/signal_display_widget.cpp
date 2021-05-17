@@ -127,7 +127,16 @@ void SignalDisplayWidget::plotSignal(cps::Signal& signal, const QString& signalN
         series->append(data.x[i], data.y[i]);
     }
     ui->chartView->chart()->addSeries(series);
-    ui->chartView->chart()->createDefaultAxes();
+    QValueAxis *axisX1 = new QValueAxis();
+    axisX1->setTitleText("t [s]");
+    ui->chartView->chart()->addAxis(axisX1, Qt::AlignBottom);
+    series->attachAxis(axisX1);
+
+    QValueAxis *axisY1 = new QValueAxis();
+    axisY1->setTitleText("A");
+    ui->chartView->chart()->addAxis(axisY1, Qt::AlignLeft);
+    series->attachAxis(axisY1);
+
     ui->chartView->chart()->setTitle(signalName);
     ui->chartView->chart()->legend()->setVisible(false);
 
@@ -155,23 +164,32 @@ void SignalDisplayWidget::plotSignal(cps::Signal& signal, const QString& signalN
 
     QBarCategoryAxis *axisX = new QBarCategoryAxis();
     axisX->append(categories);
+    axisX->setTitleText("amplitude intervals");
     chart->addAxis(axisX, Qt::AlignBottom);
     series->attachAxis(axisX);
 
     QValueAxis *axisY = new QValueAxis();
     axisY->setRange(0,max);
     axisY->setMinorTickCount(max - 1);
+    axisY->setTitleText("occurences");
     chart->addAxis(axisY, Qt::AlignLeft);
     series->attachAxis(axisY);
+    chart->legend()->setVisible(false);
 }
 
 void SignalDisplayWidget::on_createButton_clicked()
 {
-    ui->chartView->chart()->removeAllSeries();
+    const auto& chart = ui->chartView->chart();
+    const auto& axes1 = chart->axes();
+    for (const auto& axis : axes1)
+    {
+        chart->removeAxis(axis);
+    }
+    chart->removeAllSeries();
 
     const auto& histogramChart = ui->histogramView->chart();
-    const auto& axes = histogramChart->axes();
-    for (const auto& axis : axes)
+    const auto& axes2 = histogramChart->axes();
+    for (const auto& axis : axes2)
     {
         histogramChart->removeAxis(axis);
     }
