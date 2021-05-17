@@ -72,7 +72,7 @@ namespace cps
         double mAmplitude;
         double mInitialTimeSec;
         double mDurationSec;
-        int mSamplingFrequency = 16;
+        int mSamplingFrequency = 128;
     };
 }
 
