@@ -7,6 +7,11 @@
 
 namespace cps {
 
+    bool isEqual(double a, double b)
+    {
+        return fabs(a - b) < 0.00001;
+    }
+
     Signal::Signal(double amplitude, double initialTimeSec, double durationSec)
     : mAmplitude(amplitude), mInitialTimeSec(initialTimeSec), mDurationSec(durationSec)
     {
@@ -190,14 +195,15 @@ namespace cps {
 
     HistogramData Signal::histogramData(unsigned int numberOfIntervals) {
         const auto dataCopy = data();
-        const double min = minValue();
-        const double max = maxValue();
-        const double deltaY = (max - min) / numberOfIntervals;
+        const double min = roundTo5(minValue());
+        const double max = roundTo5(maxValue());
+        const double deltaY = roundTo5((max - min) / numberOfIntervals);
         double y = min;
         HistogramData histogramData;
+        unsigned int intervalNumber = 1;
         while (y < max - 0.00001)
         {
-            const double yEnd = y + deltaY;
+            const double yEnd = roundTo5(y + deltaY);
             histogramData.intervals.emplace_back(y, yEnd);
             unsigned int occurrences = 0;
             for (const auto& signalY : dataCopy.y)
@@ -206,11 +212,15 @@ namespace cps {
                 {
                     occurrences += 1;
                 }
+                else if (intervalNumber == numberOfIntervals && signalY == yEnd)
+                {
+                    occurrences++;
+                }
             }
             histogramData.occurrences.push_back(occurrences);
             y = yEnd;
+            intervalNumber++;
         }
-        histogramData.occurrences.back() += 1;
         return histogramData;
     }
 
