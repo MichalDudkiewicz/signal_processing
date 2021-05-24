@@ -22,6 +22,7 @@ add_library(library
         src/utils.cpp
         include/quantizer.hpp
         include/extrapolator.hpp
+        src/sin_card_reconstructed_signal.cpp
         )
 
 target_include_directories(library PUBLIC include)
