@@ -63,7 +63,6 @@ namespace cps
 
         friend std::ostream& operator<<(std::ostream& os, Signal& signal);
 
-    private:
         double maxValue();
 
         double minValue();

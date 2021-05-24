@@ -20,6 +20,7 @@ add_library(library
         src/periodic_signal.cpp
         src/custom_signal.cpp
         src/utils.cpp
+        include/quantizer.hpp
         )
 
 target_include_directories(library PUBLIC include)

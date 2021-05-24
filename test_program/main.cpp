@@ -17,6 +17,7 @@
 #include <fstream>
 #include <ostream>
 #include <istream>
+#include "quantizer.hpp"
 
 using namespace cps;
 
@@ -33,24 +34,33 @@ int main() {
 //    UnitImpulseSignal signal(0, 4, 10, 16);
 //    ImpulseNoise signal(1, 0, 4, 16, 0.5);
 
-    std::cout << signal1.mean() << "\n" << signal1.absMean() << "\n" << signal1.rms() << "\n" << signal1.variance() << "\n" << signal1.meanPower() << '\n';
+//    std::cout << signal1.mean() << "\n" << signal1.absMean() << "\n" << signal1.rms() << "\n" << signal1.variance() << "\n" << signal1.meanPower() << '\n';
+//
+//    const auto custom = signal1 * signal2;
+//
+//    std::ofstream out;
+//    out.open( "1.bin",
+//              std::ios::out | std::ios::trunc | std::ios::binary );
+//
+//    custom.serialize(out);
+//    out.close();
+//
+//    std::fstream in;
+//    in.open("1.bin", std::ios::in | std::ios::binary);
+//    CustomSignal customSignal;
+//    customSignal.unserialize(in);
+//    in.close();
+//
+//    std::cout << customSignal;
 
-    const auto custom = signal1 * signal2;
+    Quantizer quantizer;
+    const auto data = quantizer.quantize<3>(signal1, 128);
 
-    std::ofstream out;
-    out.open( "1.bin",
-              std::ios::out | std::ios::trunc | std::ios::binary );
-
-    custom.serialize(out);
-    out.close();
-
-    std::fstream in;
-    in.open("1.bin", std::ios::in | std::ios::binary);
-    CustomSignal customSignal;
-    customSignal.unserialize(in);
-    in.close();
-
-    std::cout << customSignal;
+    auto dupa = signal1.data();
+    for(const auto& bitset : data.y)
+    {
+        std::cout << bitset.to_string() << " ";
+    }
 
     int a = 0;
 }
