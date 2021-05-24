@@ -265,4 +265,8 @@ namespace cps {
     double Signal::amplitude() const {
         return mAmplitude;
     }
+
+    int Signal::samplingFrequency() const {
+        return mSamplingFrequency;
+    }
 }

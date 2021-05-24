@@ -49,6 +49,8 @@ namespace cps
 
         void setSamplingFrequency(int samplingFrequency);
 
+        int samplingFrequency() const;
+
         std::shared_ptr<CustomSignal> operator*(Signal& signal);
 
         std::shared_ptr<CustomSignal> operator/(Signal& signal);

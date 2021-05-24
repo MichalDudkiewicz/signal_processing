@@ -24,9 +24,11 @@ public:
 
     void setSignal(const std::shared_ptr<cps::Signal>& newSignal);
 
+    void setSecondarySignal(const std::shared_ptr<cps::Signal>& newSignal);
+
 private:
     Ui::SignalDisplayWidget *ui;
-    void plotSignal(cps::Signal& signal, const QString& signalName) const;
+    void plotSignal(cps::Signal& signal, const QString& signalName, bool histogram = true) const;
 
 private slots:
     void on_comboBox_currentTextChanged(const QString& text);
@@ -35,6 +37,7 @@ private slots:
 
 private:
     std::shared_ptr<cps::Signal> mSignalStored;
+    std::shared_ptr<cps::Signal> mSignalForComparisonStored;
 };
 
 

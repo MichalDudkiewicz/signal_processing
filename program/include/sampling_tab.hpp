@@ -16,6 +16,9 @@ public:
 
     ~SamplingTab() override;
 
+private slots:
+    void on_sampleButton_clicked();
+
 private:
     Ui::SamplingTab *ui;
 };

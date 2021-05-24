@@ -92,7 +92,7 @@ void SignalDisplayWidget::on_comboBox_currentTextChanged(const QString& text)
     }
 }
 
-void SignalDisplayWidget::plotSignal(cps::Signal& signal, const QString& signalName) const
+void SignalDisplayWidget::plotSignal(cps::Signal& signal, const QString& signalName, bool histogram) const
 {
     std::string properties = signal.stringProperties();
     ui->propertiesText->setText(QString::fromStdString(properties));
@@ -105,6 +105,7 @@ void SignalDisplayWidget::plotSignal(cps::Signal& signal, const QString& signalN
     {
         series = new QLineSeries();
     }
+
     const unsigned int samplingFrequency = ui->samplingFreqTextEdit->toPlainText().toUInt();
     signal.setSamplingFrequency(samplingFrequency);
     const auto data = signal.data();
@@ -127,40 +128,43 @@ void SignalDisplayWidget::plotSignal(cps::Signal& signal, const QString& signalN
     ui->chartView->chart()->legend()->setVisible(false);
 
     // histogram
-    const unsigned int numberOfIntervals = ui->intervalsNumberTextEdit->toPlainText().toUInt();
-    const auto histogramData = signal.histogramData(numberOfIntervals);
-    QBarSet *set = new QBarSet("histogram");
-    unsigned int max = 0;
-    for (const auto& occurence : histogramData.occurrences)
+    if (histogram)
     {
-        *set << occurence;
-        if (occurence > max)
-            max = occurence;
+        const unsigned int numberOfIntervals = ui->intervalsNumberTextEdit->toPlainText().toUInt();
+        const auto histogramData = signal.histogramData(numberOfIntervals);
+        QBarSet *set = new QBarSet("histogram");
+        unsigned int max = 0;
+        for (const auto& occurence : histogramData.occurrences)
+        {
+            *set << occurence;
+            if (occurence > max)
+                max = occurence;
+        }
+        QBarSeries *histogramSeries = new QBarSeries();
+        histogramSeries->append(set);
+        const auto& chart = ui->histogramView->chart();
+        chart->addSeries(histogramSeries);
+
+        QStringList categories;
+        for(const auto& interval : histogramData.intervals)
+        {
+            categories << QString::number(cps::roundTo2(interval.first)) + ':' + QString::number(cps::roundTo2(interval.second));
+        }
+
+        QBarCategoryAxis *axisX = new QBarCategoryAxis();
+        axisX->append(categories);
+        axisX->setTitleText("amplitude intervals");
+        chart->addAxis(axisX, Qt::AlignBottom);
+        series->attachAxis(axisX);
+
+        QValueAxis *axisY = new QValueAxis();
+        axisY->setRange(0,max);
+        axisY->setMinorTickCount(max - 1);
+        axisY->setTitleText("occurences");
+        chart->addAxis(axisY, Qt::AlignLeft);
+        series->attachAxis(axisY);
+        chart->legend()->setVisible(false);
     }
-    QBarSeries *histogramSeries = new QBarSeries();
-    histogramSeries->append(set);
-    const auto& chart = ui->histogramView->chart();
-    chart->addSeries(histogramSeries);
-
-    QStringList categories;
-    for(const auto& interval : histogramData.intervals)
-    {
-        categories << QString::number(cps::roundTo2(interval.first)) + ':' + QString::number(cps::roundTo2(interval.second));
-    }
-
-    QBarCategoryAxis *axisX = new QBarCategoryAxis();
-    axisX->append(categories);
-    axisX->setTitleText("amplitude intervals");
-    chart->addAxis(axisX, Qt::AlignBottom);
-    series->attachAxis(axisX);
-
-    QValueAxis *axisY = new QValueAxis();
-    axisY->setRange(0,max);
-    axisY->setMinorTickCount(max - 1);
-    axisY->setTitleText("occurences");
-    chart->addAxis(axisY, Qt::AlignLeft);
-    series->attachAxis(axisY);
-    chart->legend()->setVisible(false);
 }
 
 void SignalDisplayWidget::on_createButton_clicked()
@@ -306,4 +310,16 @@ void SignalDisplayWidget::setSignal(const std::shared_ptr<cps::Signal> &newSigna
     ui->initialTimeTextEdit->setText(QString::number(mSignalStored->initialTime()));
     ui->durationTextEdit->setText(QString::number(mSignalStored->duration()));
     plotSignal(*mSignalStored, "custom");
+}
+
+void SignalDisplayWidget::setSecondarySignal(const std::shared_ptr<cps::Signal>& newSignal)
+{
+    mSignalForComparisonStored = newSignal;
+    const auto& chart = ui->chartView->chart();
+    const auto& axes1 = chart->axes();
+    for (const auto& axis : axes1)
+    {
+        chart->removeAxis(axis);
+    }
+    plotSignal(*mSignalForComparisonStored, "custom", false);
 }

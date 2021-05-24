@@ -19,7 +19,7 @@
      <item>
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="0" column="0">
-        <widget class="SignalDisplayWidget" name="widget" native="true">
+        <widget class="SignalDisplayWidget" name="signalDisplay" native="true">
          <property name="minimumSize">
           <size>
            <width>800</width>

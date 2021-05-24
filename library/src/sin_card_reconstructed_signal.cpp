@@ -19,39 +19,68 @@ namespace cps {
         int numberOfSamples = mSignalData.x.size();
         double deltaX = mDurationSec / numberOfSamples;
 
-        int index = 0;
-        int neigbourIndex = 0;
-        for (const auto& x2 : mSignalData.x)
-        {
-            if (x >= x2 - deltaX/2 && x <= x2 + deltaX/2)
-            {
-                neigbourIndex = index;
-                break;
-            }
-            index++;
-        }
+        /* find nearest sample */
+        int index = (int) floor((x - mInitialTimeSec) / mDurationSec * numberOfSamples);
 
         /* find range of N (or less) samples */
-        int firstSample0 = neigbourIndex - mNumberOfNeigbourSamples / 2;
-        int lastSample0 = firstSample0 + mNumberOfNeigbourSamples;
-
-        int firstSample = std::max(0, firstSample0);
-        if (firstSample0 < 0)
-        {
-            lastSample0 -= firstSample0;
+        int firstSample = index - mNumberOfNeigbourSamples / 2;
+        int lastSample = firstSample + mNumberOfNeigbourSamples;
+        if (firstSample < 0) {
+            lastSample = lastSample - firstSample;
+            firstSample = 0;
+            if (lastSample > numberOfSamples) {
+                lastSample = numberOfSamples;
+            }
+        } else if (lastSample > numberOfSamples) {
+            firstSample = firstSample - (lastSample - numberOfSamples);
+            lastSample = numberOfSamples;
+            if (firstSample < 0) {
+                firstSample = 0;
+            }
         }
-        int lastSample = std::min(numberOfSamples - 1, lastSample0);
-        if(lastSample0 > numberOfSamples - 1)
-        {
-            int sample = firstSample - (lastSample0 - (numberOfSamples - 1));
-            firstSample = std::max(0, sample);
-        }
 
+        /* calculate value */
+        double step = mDurationSec / numberOfSamples;
         double sum = 0.0;
-        for (int i = firstSample; i <= lastSample; i++) {
-            sum += mSignalData.y[i] * sinc(x / deltaX - i);
+        for (int i = firstSample; i < lastSample; i++) {
+            sum += mSignalData.y[i] * sinc(x / step - i);
         }
 
         return sum;
+
+//        int index = 0;
+//        int neigbourIndex = 0;
+//        for (const auto& x2 : mSignalData.x)
+//        {
+//            if (x >= x2 - deltaX/2 && x <= x2 + deltaX/2)
+//            {
+//                neigbourIndex = index;
+//                break;
+//            }
+//            index++;
+//        }
+//
+//        /* find range of N (or less) samples */
+//        int firstSample0 = neigbourIndex - mNumberOfNeigbourSamples / 2;
+//        int lastSample0 = firstSample0 + mNumberOfNeigbourSamples;
+//
+//        int firstSample = std::max(0, firstSample0);
+//        if (firstSample0 < 0)
+//        {
+//            lastSample0 -= firstSample0;
+//        }
+//        int lastSample = std::min(numberOfSamples - 1, lastSample0);
+//        if(lastSample0 > numberOfSamples - 1)
+//        {
+//            int sample = firstSample - (lastSample0 - (numberOfSamples - 1));
+//            firstSample = std::max(0, sample);
+//        }
+//
+//        double sum = 0.0;
+//        for (int i = firstSample; i <= lastSample; i++) {
+//            sum += mSignalData.y[i] * sinc(x / deltaX - i);
+//        }
+//
+//        return sum;
     }
 }
