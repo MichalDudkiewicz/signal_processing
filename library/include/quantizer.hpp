@@ -16,9 +16,12 @@ namespace cps {
     };
 
     class Quantizer {
+    private:
+        Quantizer() = default;
+
     public:
         template <size_t bitResolution>
-        QuantizedSignalData<bitResolution> quantize(Signal& signal, int samplingFrequency);
+        static QuantizedSignalData<bitResolution> quantize(Signal& signal, int samplingFrequency);
     };
 
     template<size_t bitResolution>

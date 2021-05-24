@@ -18,6 +18,7 @@
 #include <ostream>
 #include <istream>
 #include "quantizer.hpp"
+#include "extrapolator.hpp"
 
 using namespace cps;
 
@@ -53,14 +54,15 @@ int main() {
 //
 //    std::cout << customSignal;
 
-    Quantizer quantizer;
-    const auto data = quantizer.quantize<3>(signal1, 128);
+    const auto data = Quantizer::quantize<3>(signal1, 128);
 
     auto dupa = signal1.data();
     for(const auto& bitset : data.y)
     {
         std::cout << bitset.to_string() << " ";
     }
+
+    const auto data2 = Extrapolator::extrapolate<3>(data, signal1.minValue(), signal1.maxValue());
 
     int a = 0;
 }
