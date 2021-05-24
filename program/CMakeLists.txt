@@ -15,12 +15,16 @@ set(REQUIRED_LIBS_QUALIFIED Qt5::Core Qt5::Gui Qt5::Widgets)
 
 add_executable(${PROJECT_NAME}
         src/main.cpp
-        src/main_window.cpp
-        include/main_window.hpp
+#        src/main_window.cpp
+#        include/main_window.hpp
+        src/main_window2.cpp
+        include/main_window2.hpp
         src/signal_display_widget.cpp
         include/signal_display_widget.hpp
         src/result_signal_dialog.cpp
         include/result_signal_dialog.hpp
+        src/sampling_tab.cpp
+        include/sampling_tab.hpp
         )
 
 if (NOT CMAKE_PREFIX_PATH)
