@@ -17,6 +17,7 @@
 #include <fstream>
 #include <ostream>
 #include <istream>
+#include <sin_card_reconstructed_signal.hpp>
 #include "quantizer.hpp"
 #include "extrapolator.hpp"
 
@@ -54,15 +55,13 @@ int main() {
 //
 //    std::cout << customSignal;
 
-    const auto data = Quantizer::quantize<3>(signal1, 128);
+    const auto data = Quantizer::quantize<8>(signal1, 128);
 
-    auto dupa = signal1.data();
-    for(const auto& bitset : data.y)
-    {
-        std::cout << bitset.to_string() << " ";
-    }
+    const auto data2 = Extrapolator::extrapolateDiscreet<8>(data, signal1.minValue(), signal1.maxValue());
 
-    const auto data2 = Extrapolator::extrapolate<3>(data, signal1.minValue(), signal1.maxValue());
+    SinCardReconstructedSignal signal0(data2, 8);
+
+    const auto dupa = signal0.data();
 
     int a = 0;
 }

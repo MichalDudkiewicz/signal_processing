@@ -23,7 +23,7 @@ namespace cps {
         int neigbourIndex = 0;
         for (const auto& x2 : mSignalData.x)
         {
-            if (x >= x2 + deltaX/2 && x <= x2 - deltaX/2)
+            if (x >= x2 - deltaX/2 && x <= x2 + deltaX/2)
             {
                 neigbourIndex = index;
                 break;
@@ -32,11 +32,20 @@ namespace cps {
         }
 
         /* find range of N (or less) samples */
-        int firstSample = neigbourIndex - mNumberOfNeigbourSamples / 2;
-        int lastSample = firstSample + mNumberOfNeigbourSamples;
+        int firstSample0 = neigbourIndex - mNumberOfNeigbourSamples / 2;
+        int lastSample0 = firstSample0 + mNumberOfNeigbourSamples;
 
-        firstSample = std::max(0, firstSample);
-        lastSample = std::min(numberOfSamples - 1, lastSample);
+        int firstSample = std::max(0, firstSample0);
+        if (firstSample0 < 0)
+        {
+            lastSample0 -= firstSample0;
+        }
+        int lastSample = std::min(numberOfSamples - 1, lastSample0);
+        if(lastSample0 > numberOfSamples - 1)
+        {
+            int sample = firstSample - (lastSample0 - (numberOfSamples - 1));
+            firstSample = std::max(0, sample);
+        }
 
         double sum = 0.0;
         for (int i = firstSample; i <= lastSample; i++) {
