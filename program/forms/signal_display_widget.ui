@@ -16,7 +16,7 @@
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
-     <item row="23" column="0">
+     <item row="25" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout" stretch="0">
        <item>
         <widget class="QWidget" name="properties" native="true">
@@ -74,7 +74,7 @@
      <item row="1" column="0">
       <widget class="QComboBox" name="comboBox"/>
      </item>
-     <item row="9" column="0">
+     <item row="11" column="0">
       <widget class="QTextEdit" name="durationTextEdit">
        <property name="maximumSize">
         <size>
@@ -84,14 +84,14 @@
        </property>
       </widget>
      </item>
-     <item row="8" column="0">
+     <item row="10" column="0">
       <widget class="QLabel" name="durationLabel">
        <property name="text">
         <string>duration</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
+     <item row="5" column="0">
       <widget class="QTextEdit" name="amplitudeTextEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -107,7 +107,7 @@
        </property>
       </widget>
      </item>
-     <item row="5" column="0">
+     <item row="7" column="0">
       <widget class="QTextEdit" name="initialTimeTextEdit">
        <property name="maximumSize">
         <size>
@@ -117,35 +117,35 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="0">
+     <item row="6" column="0">
       <widget class="QLabel" name="initialTimeLabel">
        <property name="text">
         <string>initial time</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
+     <item row="4" column="0">
       <widget class="QLabel" name="amplitudeLabel">
        <property name="text">
         <string>amplitude</string>
        </property>
       </widget>
      </item>
-     <item row="22" column="0">
+     <item row="24" column="0">
       <widget class="QPushButton" name="createButton">
        <property name="text">
         <string>create</string>
        </property>
       </widget>
      </item>
-     <item row="10" column="0">
+     <item row="12" column="0">
       <widget class="QLabel" name="periodLabel">
        <property name="text">
         <string>period</string>
        </property>
       </widget>
      </item>
-     <item row="11" column="0">
+     <item row="13" column="0">
       <widget class="QTextEdit" name="periodTextEdit">
        <property name="maximumSize">
         <size>
@@ -155,14 +155,14 @@
        </property>
       </widget>
      </item>
-     <item row="12" column="0">
+     <item row="14" column="0">
       <widget class="QLabel" name="samplingFrequencyLabel">
        <property name="text">
         <string>sampling frequency</string>
        </property>
       </widget>
      </item>
-     <item row="15" column="0">
+     <item row="17" column="0">
       <widget class="QTextEdit" name="probabilityTextEdit">
        <property name="maximumSize">
         <size>
@@ -172,7 +172,7 @@
        </property>
       </widget>
      </item>
-     <item row="13" column="0">
+     <item row="15" column="0">
       <widget class="QTextEdit" name="samplingFrequencyTextEdit">
        <property name="maximumSize">
         <size>
@@ -182,21 +182,21 @@
        </property>
       </widget>
      </item>
-     <item row="14" column="0">
+     <item row="16" column="0">
       <widget class="QLabel" name="probabilityLabel">
        <property name="text">
         <string>probability</string>
        </property>
       </widget>
      </item>
-     <item row="16" column="0">
+     <item row="18" column="0">
       <widget class="QLabel" name="fullfilmentLabel">
        <property name="text">
         <string>fullfilment</string>
        </property>
       </widget>
      </item>
-     <item row="17" column="0">
+     <item row="19" column="0">
       <widget class="QTextEdit" name="kwTextEdit">
        <property name="maximumSize">
         <size>
@@ -206,14 +206,14 @@
        </property>
       </widget>
      </item>
-     <item row="20" column="0">
+     <item row="22" column="0">
       <widget class="QLabel" name="impulseSampleNumberLabel">
        <property name="text">
         <string>number of impulse sample</string>
        </property>
       </widget>
      </item>
-     <item row="19" column="0">
+     <item row="21" column="0">
       <widget class="QTextEdit" name="stepTimeTextEdit">
        <property name="maximumSize">
         <size>
@@ -223,20 +223,37 @@
        </property>
       </widget>
      </item>
-     <item row="18" column="0">
+     <item row="20" column="0">
       <widget class="QLabel" name="stepTimeLabel">
        <property name="text">
         <string>step time</string>
        </property>
       </widget>
      </item>
-     <item row="21" column="0">
+     <item row="23" column="0">
       <widget class="QTextEdit" name="impulseSampleNumberTextEdit">
        <property name="maximumSize">
         <size>
          <width>100</width>
          <height>30</height>
         </size>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QTextEdit" name="samplingFreqTextEdit">
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>30</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>sampling frequency for discretization</string>
        </property>
       </widget>
      </item>

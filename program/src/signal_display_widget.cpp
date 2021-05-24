@@ -105,6 +105,8 @@ void SignalDisplayWidget::plotSignal(cps::Signal& signal, const QString& signalN
     {
         series = new QLineSeries();
     }
+    const unsigned int samplingFrequency = ui->samplingFreqTextEdit->toPlainText().toUInt();
+    signal.setSamplingFrequency(samplingFrequency);
     const auto data = signal.data();
     for (int i = 0; i < data.x.size(); i++)
     {
