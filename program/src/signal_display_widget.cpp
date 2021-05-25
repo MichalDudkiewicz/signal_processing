@@ -323,3 +323,9 @@ void SignalDisplayWidget::setSecondarySignal(const std::shared_ptr<cps::Signal>&
     }
     plotSignal(*mSignalForComparisonStored, "custom", false);
 }
+
+void SignalDisplayWidget::setDisplayInfo(const std::string& info) const
+{
+    ui->propertiesText->clear();
+    ui->propertiesText->setText(QString::fromStdString(info));
+}

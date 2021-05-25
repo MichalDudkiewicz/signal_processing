@@ -13,6 +13,10 @@ namespace cps {
     double maximumDifference(const SignalData& result, const SignalData& origin);
 
     double effectiveNumberOfBits(const SignalData& result, const SignalData& origin);
+
+    std::string signalComparisonInfo(const SignalData& result, const SignalData& origin);
+
+    std::string signalComparisonInfoForQuantization(const SignalData& result, const SignalData& origin);
 }
 
 #endif //SIGNAL_PROCESSING_SIGNAL_SIMILARITY_MEASURES_HPP

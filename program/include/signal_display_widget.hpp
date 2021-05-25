@@ -26,6 +26,8 @@ public:
 
     void setSecondarySignal(const std::shared_ptr<cps::Signal>& newSignal);
 
+    void setDisplayInfo(const std::string& info) const;
+
 private:
     Ui::SignalDisplayWidget *ui;
     void plotSignal(cps::Signal& signal, const QString& signalName, bool histogram = true) const;

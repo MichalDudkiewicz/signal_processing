@@ -4,6 +4,7 @@
 #include <memory>
 #include "sin_card_reconstructed_signal.hpp"
 #include "signal.hpp"
+#include "signal_similarity_measures.hpp"
 
 using namespace cps;
 
@@ -24,7 +25,10 @@ void SamplingTab::on_sampleButton_clicked()
     ui->signalDisplay->signal()->setSamplingFrequency(newSamplingFreq);
     const auto signalData = ui->signalDisplay->signal()->data();
     std::shared_ptr<SinCardReconstructedSignal> signal = std::make_shared<SinCardReconstructedSignal>(signalData, N);
-    ui->signalDisplay->signal()->setSamplingFrequency(samplingFreqBuffer);
-
+    signal->setSamplingFrequency(newSamplingFreq);
+    const auto data2 = signal->data();
+    const std::string displayInfo = signalComparisonInfo(data2, signalData);
     ui->signalDisplay->setSecondarySignal(signal);
+    ui->signalDisplay->signal()->setSamplingFrequency(samplingFreqBuffer);
+    ui->signalDisplay->setDisplayInfo(displayInfo);
 }

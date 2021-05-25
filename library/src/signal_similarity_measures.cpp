@@ -2,6 +2,7 @@
 #include "signal_similarity_measures.hpp"
 #include <cmath>
 #include <cfloat>
+#include <sstream>
 
 namespace cps {
       double meanSquaredError(const SignalData& result, const SignalData& origin) {
@@ -69,4 +70,21 @@ namespace cps {
         return (signalToNoiseRatio(result, origin) - 1.76) / 6.02;
     }
 
+    std::string signalComparisonInfo(const SignalData& result, const SignalData& origin)
+    {
+          std::stringstream os;
+          os << "Mean squared error: " << meanSquaredError(result, origin) << '\n';
+          os << "Signal to noise ratio: " << signalToNoiseRatio(result, origin) << '\n';
+          os << "Peak signal to noise ratio: " << peakSignalToNoiseRatio(result, origin) << '\n';
+          os << "Maximum difference: " << maximumDifference(result, origin) << '\n';
+          return os.str();
+    }
+
+    std::string signalComparisonInfoForQuantization(const SignalData& result, const SignalData& origin)
+    {
+        std::stringstream os;
+        os << signalComparisonInfo(result, origin);
+        os << "Effective number of bits: " << effectiveNumberOfBits(result, origin) << '\n';
+        return os.str();
+    }
 }
