@@ -20,6 +20,7 @@
 #include <sin_card_reconstructed_signal.hpp>
 #include "quantizer.hpp"
 #include "extrapolator.hpp"
+#include "quantized_signal.hpp"
 
 using namespace cps;
 
@@ -55,13 +56,17 @@ int main() {
 //
 //    std::cout << customSignal;
 
-    const auto data = Quantizer::quantize<8>(signal1, 128);
+    const auto data = Quantizer::quantize<3>(signal1, 128);
 
-    const auto data2 = Extrapolator::extrapolateDiscreet<8>(data, signal1.minValue(), signal1.maxValue());
+    const auto data2 = Extrapolator::extrapolateDiscreet<3>(data, signal1.minValue(), signal1.maxValue());
 
-    SinCardReconstructedSignal signal0(data2, 8);
+    SinCardReconstructedSignal signal0(data2, 3);
 
     const auto dupa = signal0.data();
+
+    QuantizedSignal signal(data2);
+    signal.setSamplingFrequency(16);
+    const auto dupa123 = signal.data();
 
     int a = 0;
 }
