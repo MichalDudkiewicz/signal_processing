@@ -14,9 +14,9 @@ namespace cps {
         double xEnd = x + signal.duration();
 
         const double samplesNumber = signal.duration() * mSamplingFrequency;
-        const double sampleDeltaTime = signal.duration() / (double)samplesNumber;
+        const double sampleDeltaTime = signal.duration() / samplesNumber;
         SignalData sampledSignal;
-        while (x <= xEnd)
+        while (x <= xEnd + 0.00001)
         {
             sampledSignal.x.push_back(x);
             double y = signal.value(x);

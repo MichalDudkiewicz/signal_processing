@@ -22,12 +22,15 @@ void SamplingTab::on_sampleButton_clicked()
     int N = ui->nTextEdit->toPlainText().toInt();
     const int samplingFreqBuffer = ui->signalDisplay->signal()->samplingFrequency();
     const int newSamplingFreq = ui->samplingFrequencyTextEdit->toPlainText().toInt();
-    ui->signalDisplay->signal()->setSamplingFrequency(newSamplingFreq);
+    ui->signalDisplay->signal()->setSamplingFrequency(samplingFreqBuffer/10);
     const auto signalData = ui->signalDisplay->signal()->data();
     std::shared_ptr<SinCardReconstructedSignal> signal = std::make_shared<SinCardReconstructedSignal>(signalData, N);
     signal->setSamplingFrequency(newSamplingFreq);
+    ui->signalDisplay->signal()->setSamplingFrequency(newSamplingFreq);
+    const auto signalData2 = ui->signalDisplay->signal()->data();
     const auto data2 = signal->data();
-    const std::string displayInfo = signalComparisonInfo(data2, signalData);
+    const std::string displayInfo = signalComparisonInfo(data2, signalData2);
+    signal->setSamplingFrequency(samplingFreqBuffer);
     ui->signalDisplay->setSecondarySignal(signal);
     ui->signalDisplay->signal()->setSamplingFrequency(samplingFreqBuffer);
     ui->signalDisplay->setDisplayInfo(displayInfo);

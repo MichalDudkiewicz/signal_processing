@@ -6,7 +6,7 @@ namespace cps {
         if (t == 0.0) {
             return 1.0;
         } else {
-            return sin(M_PI * t) / (M_PI * t);
+            return sin(t) / t;
         }
     }
 
@@ -16,8 +16,7 @@ namespace cps {
     }
 
     double SinCardReconstructedSignal::value(double x) {
-        int numberOfSamples = mSignalData.x.size();
-        double deltaX = mDurationSec / numberOfSamples;
+        int numberOfSamples = mSignalData.x.size() - 1;
 
         /* find nearest sample */
         int index = (int) floor((x - mInitialTimeSec) / mDurationSec * numberOfSamples);
@@ -42,8 +41,8 @@ namespace cps {
         /* calculate value */
         double step = mDurationSec / numberOfSamples;
         double sum = 0.0;
-        for (int i = firstSample; i < lastSample; i++) {
-            sum += mSignalData.y[i] * sinc(x / step - i);
+        for (int i = firstSample; i <= lastSample; i++) {
+            sum += mSignalData.y[i] * sinc( M_PI/step * (x - i * step));
         }
 
         return sum;

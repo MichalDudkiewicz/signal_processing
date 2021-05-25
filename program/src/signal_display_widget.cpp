@@ -106,8 +106,6 @@ void SignalDisplayWidget::plotSignal(cps::Signal& signal, const QString& signalN
         series = new QLineSeries();
     }
 
-    const unsigned int samplingFrequency = ui->samplingFreqTextEdit->toPlainText().toUInt();
-    signal.setSamplingFrequency(samplingFrequency);
     const auto data = signal.data();
     for (int i = 0; i < data.x.size(); i++)
     {
@@ -189,6 +187,7 @@ void SignalDisplayWidget::on_createButton_clicked()
     const double initialTime = ui->initialTimeTextEdit->toPlainText().toDouble();
     const double duration = ui->durationTextEdit->toPlainText().toDouble();
     const auto text = ui->comboBox->currentText();
+
     if (text == "custom")
     {
         QDir dataDir("../../program/data");
@@ -204,17 +203,23 @@ void SignalDisplayWidget::on_createButton_clicked()
         ui->amplitudeTextEdit->setText(QString::number(mSignalStored->amplitude()));
         ui->initialTimeTextEdit->setText(QString::number(mSignalStored->initialTime()));
         ui->durationTextEdit->setText(QString::number(mSignalStored->duration()));
+        const unsigned int samplingFrequency = ui->samplingFreqTextEdit->toPlainText().toUInt();
+        mSignalStored->setSamplingFrequency(samplingFrequency);
         plotSignal(*mSignalStored, text);
     }
     else if (text == "gaussian noise")
     {
         mSignalStored = std::make_shared<cps::GaussianNoise>(amplitude, initialTime, duration);
+        const unsigned int samplingFrequency = ui->samplingFreqTextEdit->toPlainText().toUInt();
+        mSignalStored->setSamplingFrequency(samplingFrequency);
         plotSignal(*mSignalStored, text);
     }
     else if (text == "half rectified sinusoidal")
     {
         const double period = ui->periodTextEdit->toPlainText().toDouble();
         mSignalStored = std::make_shared<cps::HalfRectifiedSinusoidalSignal>(amplitude, initialTime, duration, period);
+        const unsigned int samplingFrequency = ui->samplingFreqTextEdit->toPlainText().toUInt();
+        mSignalStored->setSamplingFrequency(samplingFrequency);
         plotSignal(*mSignalStored, text);
     }
     else if (text == "impulse noise")
@@ -222,6 +227,8 @@ void SignalDisplayWidget::on_createButton_clicked()
         const int samplingFrequency = ui->samplingFrequencyTextEdit->toPlainText().toInt();
         const double probability = ui->probabilityTextEdit->toPlainText().toDouble();
         mSignalStored = std::make_shared<cps::ImpulseNoise>(amplitude, initialTime, duration, samplingFrequency, probability);
+        const unsigned int samplingFrequency2 = ui->samplingFreqTextEdit->toPlainText().toUInt();
+        mSignalStored->setSamplingFrequency(samplingFrequency2);
         plotSignal(*mSignalStored, text);
     }
     else if (text == "rectangular")
@@ -229,18 +236,24 @@ void SignalDisplayWidget::on_createButton_clicked()
         const double period = ui->periodTextEdit->toPlainText().toDouble();
         const double kw = ui->kwTextEdit->toPlainText().toDouble();
         mSignalStored = std::make_shared<cps::RectangularSignal>(amplitude, initialTime, duration, period, kw);
+        const unsigned int samplingFrequency = ui->samplingFreqTextEdit->toPlainText().toUInt();
+        mSignalStored->setSamplingFrequency(samplingFrequency);
         plotSignal(*mSignalStored, text);
     }
     else if (text == "rectified sinusoidal")
     {
         const double period = ui->periodTextEdit->toPlainText().toDouble();
         mSignalStored = std::make_shared<cps::RectifiedSinusoidalSignal>(amplitude, initialTime, duration, period);
+        const unsigned int samplingFrequency = ui->samplingFreqTextEdit->toPlainText().toUInt();
+        mSignalStored->setSamplingFrequency(samplingFrequency);
         plotSignal(*mSignalStored, text);
     }
     else if (text == "sinusoidal")
     {
         const double period = ui->periodTextEdit->toPlainText().toDouble();
         mSignalStored = std::make_shared<cps::SinusoidalSignal>(amplitude, initialTime, duration, period);
+        const unsigned int samplingFrequency = ui->samplingFreqTextEdit->toPlainText().toUInt();
+        mSignalStored->setSamplingFrequency(samplingFrequency);
         plotSignal(*mSignalStored, text);
     }
     else if (text == "symmetrical rectangular")
@@ -248,6 +261,8 @@ void SignalDisplayWidget::on_createButton_clicked()
         const double period = ui->periodTextEdit->toPlainText().toDouble();
         const double kw = ui->kwTextEdit->toPlainText().toDouble();
         mSignalStored = std::make_shared<cps::SymmetricalRectangularSignal>(amplitude, initialTime, duration, period, kw);
+        const unsigned int samplingFrequency = ui->samplingFreqTextEdit->toPlainText().toUInt();
+        mSignalStored->setSamplingFrequency(samplingFrequency);
         plotSignal(*mSignalStored, text);
     }
     else if (text == "triangular")
@@ -255,11 +270,15 @@ void SignalDisplayWidget::on_createButton_clicked()
         const double period = ui->periodTextEdit->toPlainText().toDouble();
         const double kw = ui->kwTextEdit->toPlainText().toDouble();
         mSignalStored = std::make_shared<cps::TriangularSignal>(amplitude, initialTime, duration, period, kw);
+        const unsigned int samplingFrequency = ui->samplingFreqTextEdit->toPlainText().toUInt();
+        mSignalStored->setSamplingFrequency(samplingFrequency);
         plotSignal(*mSignalStored, text);
     }
     else if (text == "uniform distribution noise")
     {
         mSignalStored = std::make_shared<cps::UniformDistributionNoise>(amplitude, initialTime, duration);
+        const unsigned int samplingFrequency = ui->samplingFreqTextEdit->toPlainText().toUInt();
+        mSignalStored->setSamplingFrequency(samplingFrequency);
         plotSignal(*mSignalStored, text);
     }
     else if (text == "unit impulse")
@@ -267,12 +286,16 @@ void SignalDisplayWidget::on_createButton_clicked()
         const int samplingFrequency = ui->samplingFrequencyTextEdit->toPlainText().toInt();
         const int impulseSampleNumber = ui->impulseSampleNumberTextEdit->toPlainText().toInt();
         mSignalStored = std::make_shared<cps::UnitImpulseSignal>(initialTime, duration, impulseSampleNumber, samplingFrequency);
+        const unsigned int samplingFrequency2 = ui->samplingFreqTextEdit->toPlainText().toUInt();
+        mSignalStored->setSamplingFrequency(samplingFrequency2);
         plotSignal(*mSignalStored, text);
     }
     else if (text == "unit step")
     {
         const int stepTimeSec = ui->stepTimeTextEdit->toPlainText().toInt();
         mSignalStored = std::make_shared<cps::UnitStepSignal>(amplitude, initialTime, duration, stepTimeSec);
+        const unsigned int samplingFrequency = ui->samplingFreqTextEdit->toPlainText().toUInt();
+        mSignalStored->setSamplingFrequency(samplingFrequency);
         plotSignal(*mSignalStored, text);
     }
 }

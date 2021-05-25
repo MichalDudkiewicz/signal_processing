@@ -21,6 +21,7 @@
 #include "quantizer.hpp"
 #include "extrapolator.hpp"
 #include "quantized_signal.hpp"
+#include "signal_similarity_measures.hpp"
 
 using namespace cps;
 
@@ -59,14 +60,16 @@ int main() {
     const auto data = Quantizer::quantize<3>(signal1, 128);
 
     const auto data2 = Extrapolator::extrapolateDiscreet<3>(data, signal1.minValue(), signal1.maxValue());
+signal1.setSamplingFrequency(16);
+    SinCardReconstructedSignal signal0(signal1.data(), 3);
 
-    SinCardReconstructedSignal signal0(data2, 3);
-
-    const auto dupa = signal0.data();
+    const auto dupa = signal1.data();
 
     QuantizedSignal signal(data2);
     signal.setSamplingFrequency(16);
-    const auto dupa123 = signal.data();
+    const auto dupa123 = signal0.data();
+
+    const auto d = signalComparisonInfo(dupa123, dupa);
 
     int a = 0;
 }
