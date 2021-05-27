@@ -34,7 +34,7 @@ namespace cps {
             indexCounter++;
         }
 
-        int startIndex = nearestSampleIndex - (mNumberOfNeigbourSamples - 1);
+        int startIndex = nearestSampleIndex - mNumberOfNeigbourSamples;
         startIndex = std::max(startIndex, 0);
         unsigned long endIndex = nearestSampleIndex + mNumberOfNeigbourSamples;
         endIndex = std::min(endIndex, mSignalData.x.size() - 1);
