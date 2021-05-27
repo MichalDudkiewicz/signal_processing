@@ -26,9 +26,10 @@ namespace cps {
         int indexCounter = 0;
         for (const auto& x2 : mSignalData.x)
         {
-            if (x >= x2 - step && x < x2 + step)
+            if (x >= x2 - step/2 && x < x2 + step/2)
             {
                 nearestSampleIndex = indexCounter;
+                break;
             }
             indexCounter++;
         }
@@ -43,40 +44,5 @@ namespace cps {
         }
 
         return sum;
-
-//        int index = 0;
-//        int neigbourIndex = 0;
-//        for (const auto& x2 : mSignalData.x)
-//        {
-//            if (x >= x2 - deltaX/2 && x <= x2 + deltaX/2)
-//            {
-//                neigbourIndex = index;
-//                break;
-//            }
-//            index++;
-//        }
-//
-//        /* find range of N (or less) samples */
-//        int firstSample0 = neigbourIndex - mNumberOfNeigbourSamples / 2;
-//        int lastSample0 = firstSample0 + mNumberOfNeigbourSamples;
-//
-//        int firstSample = std::max(0, firstSample0);
-//        if (firstSample0 < 0)
-//        {
-//            lastSample0 -= firstSample0;
-//        }
-//        int lastSample = std::min(numberOfSamples - 1, lastSample0);
-//        if(lastSample0 > numberOfSamples - 1)
-//        {
-//            int sample = firstSample - (lastSample0 - (numberOfSamples - 1));
-//            firstSample = std::max(0, sample);
-//        }
-//
-//        double sum = 0.0;
-//        for (int i = firstSample; i <= lastSample; i++) {
-//            sum += mSignalData.y[i] * sinc(x / deltaX - i);
-//        }
-//
-//        return sum;
     }
 }
