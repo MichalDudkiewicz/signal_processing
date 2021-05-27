@@ -18,6 +18,7 @@ public:
 
 private slots:
     void on_sampleButton_clicked();
+    void on_quantizeButton_clicked();
 
 private:
     Ui::SamplingTab *ui;

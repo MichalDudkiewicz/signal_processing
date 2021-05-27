@@ -9,7 +9,19 @@ namespace cps {
     }
 
     double QuantizedSignal::value(double x) {
-        int index = (int) floor((x - mInitialTimeSec) / mDurationSec * mSignalData.x.size());
-        return mSignalData.y[index];
+        int numberOfSamples = mSignalData.x.size();
+        double step = mDurationSec / (numberOfSamples - 1);
+        int indexCounter = 0;
+        int nearestSampleIndex = 0;
+        for (const auto& x2 : mSignalData.x)
+        {
+            if (x >= x2 - step/2 && x < x2 + step/2)
+            {
+                nearestSampleIndex = indexCounter;
+                break;
+            }
+            indexCounter++;
+        }
+        return mSignalData.y[nearestSampleIndex];
     }
 }

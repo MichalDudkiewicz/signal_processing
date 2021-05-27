@@ -16,8 +16,9 @@ namespace cps {
     };
 
     class Quantizer {
-    private:
-        Quantizer() = default;
+        Quantizer(size_t resolution);
+
+        static const size_t mResolution;
 
     public:
         template <size_t bitResolution>
@@ -38,7 +39,7 @@ namespace cps {
         for(const auto& y : signalData.y)
         {
             unsigned long intervalNumber = 0;
-            for (double y2 = minVal; y2 <= maxVal; y2 += deltaY)
+            for (double y2 = minVal; y2 < maxVal + 0.00001; y2 += deltaY)
             {
                 if(y >= y2 && y < y2 + deltaY)
                 {
