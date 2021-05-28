@@ -25,6 +25,7 @@ add_library(library
         src/sin_card_reconstructed_signal.cpp
         src/signal_similarity_measures.cpp
         src/quantized_signal.cpp
+        src/extrapolated_signal.cpp
         )
 
 target_include_directories(library PUBLIC include)

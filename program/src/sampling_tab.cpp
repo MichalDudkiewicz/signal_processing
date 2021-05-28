@@ -8,6 +8,7 @@
 #include "quantized_signal.hpp"
 #include "extrapolator.hpp"
 #include "quantizer.hpp"
+#include "extrapolated_signal.hpp"
 
 using namespace cps;
 
@@ -37,6 +38,24 @@ void SamplingTab::on_sampleButton_clicked()
     ui->signalDisplay->setSecondarySignal(signal);
     ui->signalDisplay->signal()->setSamplingFrequency(samplingFreqBuffer);
     ui->signalDisplay->setDisplayInfo(displayInfo);
+}
+
+void SamplingTab::on_extrapolateButton_clicked()
+{
+    const auto& signal = ui->signalDisplay->signal();
+    const int newSamplingFreq = ui->samplingFrequencyTextEdit->toPlainText().toInt();
+    const int samplingFreqBuffer = ui->signalDisplay->signal()->samplingFrequency();
+    signal->setSamplingFrequency(samplingFreqBuffer/10);
+    const auto signalData = signal->data();
+    const auto signal2 = std::make_shared<ExtrapolatedSignal>(signalData);
+    signal2->setSamplingFrequency(newSamplingFreq);
+    signal->setSamplingFrequency(newSamplingFreq);
+    const auto signalData2 = signal->data();
+    const auto data2 = signal2->data();
+    const std::string displayInfo = signalComparisonInfo(data2, signalData2);
+    ui->signalDisplay->setSecondarySignal(signal2);
+    ui->signalDisplay->setDisplayInfo(displayInfo);
+    signal->setSamplingFrequency(samplingFreqBuffer);
 }
 
 void SamplingTab::on_quantizeButton_clicked()

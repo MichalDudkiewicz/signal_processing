@@ -19,6 +19,7 @@ public:
 private slots:
     void on_sampleButton_clicked();
     void on_quantizeButton_clicked();
+    void on_extrapolateButton_clicked();
 
 private:
     Ui::SamplingTab *ui;
