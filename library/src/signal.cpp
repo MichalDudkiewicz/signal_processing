@@ -241,7 +241,7 @@ namespace cps {
     double Signal::minValue() {
         const auto dataCopy = data();
         double min = dataCopy.y.front();
-        for (int i = 1; i<=dataCopy.y.size(); i++)
+        for (int i = 1; i<dataCopy.y.size(); i++)
         {
             const double y = dataCopy.y[i];
             if (y < min)
