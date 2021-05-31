@@ -17,6 +17,7 @@
 #include <fstream>
 #include <sin_card_reconstructed_signal.hpp>
 #include "utils.hpp"
+#include <algorithm>
 
 SignalDisplayWidget::SignalDisplayWidget(QWidget *parent) :
         QWidget(parent), ui(new Ui::SignalDisplayWidget) {
@@ -93,7 +94,7 @@ void SignalDisplayWidget::on_comboBox_currentTextChanged(const QString& text)
     }
 }
 
-void SignalDisplayWidget::plotSignal(cps::Signal& signal, const QString& signalName, bool histogram) const
+void SignalDisplayWidget::plotSignal(cps::Signal& signal, const QString& signalName, bool histogram, bool secondary) const
 {
     std::string properties = signal.stringProperties();
     ui->propertiesText->setText(QString::fromStdString(properties));
@@ -112,20 +113,36 @@ void SignalDisplayWidget::plotSignal(cps::Signal& signal, const QString& signalN
     }
 
     const auto data = signal.data();
+
+
     for (int i = 0; i < data.x.size(); i++)
     {
         series->append(data.x[i], data.y[i]);
     }
     ui->chartView->chart()->addSeries(series);
-    QValueAxis *axisX1 = new QValueAxis();
-    axisX1->setTitleText("t [s]");
-    ui->chartView->chart()->addAxis(axisX1, Qt::AlignBottom);
-    series->attachAxis(axisX1);
+    if (!secondary)
+    {
+        QValueAxis *axisX1 = new QValueAxis();
+        axisX1->setTitleText("t [s]");
+        ui->chartView->chart()->addAxis(axisX1, Qt::AlignBottom);
+        series->attachAxis(axisX1);
 
-    QValueAxis *axisY1 = new QValueAxis();
-    axisY1->setTitleText("A");
-    ui->chartView->chart()->addAxis(axisY1, Qt::AlignLeft);
-    series->attachAxis(axisY1);
+        QValueAxis *axisY1 = new QValueAxis();
+        axisY1->setTitleText("A");
+        ui->chartView->chart()->addAxis(axisY1, Qt::AlignLeft);
+        series->attachAxis(axisY1);
+    }
+    else
+    {
+        const double newMin = signal.minValue();
+        const double newMax = signal.maxValue();
+        const double currentMin = mSignalStored->minValue();
+        const double currentMax = mSignalStored->maxValue();
+        const double minVal = std::min(newMin, currentMin);
+        const double maxVal = std::max(newMax, currentMax);
+        ui->chartView->chart()->axisY()->setRange(minVal, maxVal);
+    }
+
 
     ui->chartView->chart()->setTitle(signalName);
     ui->chartView->chart()->legend()->setVisible(false);
@@ -343,13 +360,7 @@ void SignalDisplayWidget::setSignal(const std::shared_ptr<cps::Signal> &newSigna
 void SignalDisplayWidget::setSecondarySignal(const std::shared_ptr<cps::Signal>& newSignal)
 {
     mSignalForComparisonStored = newSignal;
-    const auto& chart = ui->chartView->chart();
-    const auto& axes1 = chart->axes();
-    for (const auto& axis : axes1)
-    {
-        chart->removeAxis(axis);
-    }
-    plotSignal(*mSignalForComparisonStored, "custom", false);
+    plotSignal(*mSignalForComparisonStored, "custom", false, true);
 }
 
 void SignalDisplayWidget::setDisplayInfo(const std::string& info) const

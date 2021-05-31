@@ -227,7 +227,7 @@ namespace cps {
     double Signal::maxValue() {
         const auto dataCopy = data();
         double max = dataCopy.y.front();
-        for (int i = 1; i<=dataCopy.y.size(); i++)
+        for (int i = 1; i<dataCopy.y.size(); i++)
         {
             const double y = dataCopy.y[i];
             if (y > max)

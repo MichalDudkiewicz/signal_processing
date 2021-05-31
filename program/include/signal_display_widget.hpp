@@ -30,7 +30,7 @@ public:
 
 private:
     Ui::SignalDisplayWidget *ui;
-    void plotSignal(cps::Signal& signal, const QString& signalName, bool histogram = true) const;
+    void plotSignal(cps::Signal& signal, const QString& signalName, bool histogram = true, bool secondary = false) const;
 
 private slots:
     void on_comboBox_currentTextChanged(const QString& text);
