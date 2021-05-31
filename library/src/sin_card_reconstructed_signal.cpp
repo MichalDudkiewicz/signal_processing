@@ -3,7 +3,7 @@
 
 namespace cps {
     double sinc(double t) {
-        if (t == 0.0) {
+        if (fabs(t) < 0.00001) {
             return 1.0;
         } else {
             return sin(M_PI * t) / (M_PI * t);
@@ -18,7 +18,6 @@ namespace cps {
     double SinCardReconstructedSignal::value(double x) {
         int numberOfSamples = mSignalData.x.size();
 
-        /* calculate value */
         double step = mDurationSec / (numberOfSamples - 1);
         double sum = 0.0;
 
@@ -34,10 +33,10 @@ namespace cps {
             indexCounter++;
         }
 
-        int startIndex = nearestSampleIndex - mNumberOfNeigbourSamples;
+        int startIndex = nearestSampleIndex - mNumberOfNeigbourSamples/2;
         startIndex = std::max(startIndex, 0);
-        unsigned long endIndex = nearestSampleIndex + mNumberOfNeigbourSamples;
-        endIndex = std::min(endIndex, mSignalData.x.size() - 1);
+        int endIndex = startIndex + mNumberOfNeigbourSamples;
+        endIndex = std::min(endIndex, numberOfSamples - 1);
 
         for (int i = startIndex; i <= endIndex; i++) {
             sum += mSignalData.y[i] * sinc((x - mSignalData.x[i])/step);

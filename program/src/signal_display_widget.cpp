@@ -15,6 +15,7 @@
 #include "rectified_sinusoidal_signal.hpp"
 #include "custom_signal.hpp"
 #include <fstream>
+#include <sin_card_reconstructed_signal.hpp>
 #include "utils.hpp"
 
 SignalDisplayWidget::SignalDisplayWidget(QWidget *parent) :
@@ -100,6 +101,10 @@ void SignalDisplayWidget::plotSignal(cps::Signal& signal, const QString& signalN
     if (dynamic_cast<const cps::DiscreetSignal*>(&signal))
     {
         series = new QScatterSeries();
+    }
+    else if (dynamic_cast<const cps::SinCardReconstructedSignal*>(&signal))
+    {
+        series = new QSplineSeries();
     }
     else
     {
