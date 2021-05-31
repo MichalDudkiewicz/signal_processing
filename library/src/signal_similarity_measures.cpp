@@ -38,16 +38,16 @@ namespace cps {
               throw std::runtime_error("not same length");
           }
 
-        double resultMax = DBL_MIN;
+        double resultMax = result.y.front();
         double diffSquaredSum = 0.0;
-        for (int i = 0; i < result.x.size(); i++) {
+        for (int i = 1; i < result.x.size(); i++) {
             if (result.y[i] > resultMax) {
                 resultMax = result.y[i];
             }
             diffSquaredSum += pow(result.y[i] - origin.y[i], 2.0);
         }
 
-        return 10.0 * log10(resultMax / (diffSquaredSum / result.x.size()));
+        return 10.0 * log10(resultMax / meanSquaredError(result, origin));
     }
 
       double maximumDifference(const SignalData& result, const SignalData& origin) {
@@ -55,8 +55,8 @@ namespace cps {
               throw std::runtime_error("not same length");
           }
 
-        double maxDiff = DBL_MIN;
-        for (int i = 0; i < result.x.size(); i++) {
+        double maxDiff = fabs(result.y.front() - origin.y.front());
+        for (int i = 1; i < result.x.size(); i++) {
             double diff = fabs(result.y[i] - origin.y[i]);
             if (diff > maxDiff) {
                 maxDiff = diff;
