@@ -40,9 +40,19 @@ SignalDisplayWidget::SignalDisplayWidget(QWidget *parent) :
     {
         ui->comboBox->addItem(signal);
     }
+
+//    axisX = new QValueAxis();
+//    axisX->setTitleText("t [s]");
+//    ui->chartView->chart()->addAxis(axisX, Qt::AlignBottom);
+//
+//    axisY = new QValueAxis();
+//    axisY->setTitleText("A");
+//    ui->chartView->chart()->addAxis(axisY, Qt::AlignLeft);
 }
 
 SignalDisplayWidget::~SignalDisplayWidget() {
+//    delete axisX;
+//    delete axisY;
     delete ui;
 }
 
@@ -120,17 +130,18 @@ void SignalDisplayWidget::plotSignal(cps::Signal& signal, const QString& signalN
         series->append(data.x[i], data.y[i]);
     }
     ui->chartView->chart()->addSeries(series);
+
     if (!secondary)
     {
-        QValueAxis *axisX1 = new QValueAxis();
-        axisX1->setTitleText("t [s]");
-        ui->chartView->chart()->addAxis(axisX1, Qt::AlignBottom);
-        series->attachAxis(axisX1);
+        auto axisX = new QValueAxis();
+        axisX->setTitleText("t [s]");
+        ui->chartView->chart()->addAxis(axisX, Qt::AlignBottom);
 
-        QValueAxis *axisY1 = new QValueAxis();
-        axisY1->setTitleText("A");
-        ui->chartView->chart()->addAxis(axisY1, Qt::AlignLeft);
-        series->attachAxis(axisY1);
+        auto axisY = new QValueAxis();
+        axisY->setTitleText("A");
+        ui->chartView->chart()->addAxis(axisY, Qt::AlignLeft);
+        series->attachAxis(axisX);
+        series->attachAxis(axisY);
     }
     else
     {
@@ -140,6 +151,11 @@ void SignalDisplayWidget::plotSignal(cps::Signal& signal, const QString& signalN
         const double currentMax = mSignalStored->maxValue();
         const double minVal = std::min(newMin, currentMin);
         const double maxVal = std::max(newMax, currentMax);
+        const auto& attachedAxes = ui->chartView->chart()->series().front()->attachedAxes();
+        for (const auto& axis : attachedAxes)
+        {
+            series->attachAxis(axis);
+        }
         ui->chartView->chart()->axisY()->setRange(minVal, maxVal);
     }
 

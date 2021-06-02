@@ -7,13 +7,13 @@ namespace cps {
     }
 
     double ExtrapolatedSignal::value(double x) {
-        for (int i = 0; i < mSignalData.x.size() - 1; i++)
+        for (auto i = mSignalData.x.size() - 1; i > 0; i--)
         {
-            if (x >= mSignalData.x[i] - 0.0000001 && x < mSignalData.x[i + 1] - 0.0000001)
+            if (x > mSignalData.x[i] - 0.0000001)
             {
                 return mSignalData.y[i];
             }
         }
-        return mSignalData.y.back();
+        return mSignalData.y.front();
     }
 }

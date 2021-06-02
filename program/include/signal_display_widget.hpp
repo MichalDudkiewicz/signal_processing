@@ -5,6 +5,7 @@
 #include "signal.hpp"
 #include <QString>
 #include <memory>
+#include <QtCharts/QValueAxis>
 
 
 QT_BEGIN_NAMESPACE
@@ -40,6 +41,8 @@ private slots:
 private:
     std::shared_ptr<cps::Signal> mSignalStored;
     std::shared_ptr<cps::Signal> mSignalForComparisonStored;
+//    QtCharts::QValueAxis *axisX;
+//    QtCharts::QValueAxis *axisY;
 };
 
 
