@@ -6,9 +6,10 @@
 namespace cps {
 
     double CustomSignal::value(double x) {
+        const double step = mData.x[1] - mData.x.front();
         for (int i = 0; i<mData.x.size(); i++)
         {
-            if (mData.x[i] == x)
+            if (x >= mData.x[i] - step/2 - 0.00001 && x < mData.x[i] + step/2)
             {
                 return mData.y[i];
             }
