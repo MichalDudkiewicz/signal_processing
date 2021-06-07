@@ -41,7 +41,7 @@ namespace cps {
             unsigned long intervalNumber = 0;
             for (double y2 = minVal; y2 < maxVal + 0.00001; y2 += deltaY)
             {
-                if(y >= y2 && y < y2 + deltaY)
+                if(y >= y2 - deltaY/2 && y < y2 + deltaY/2)
                 {
                     if (intervalNumber >= pow(2, bitResolution))
                     {

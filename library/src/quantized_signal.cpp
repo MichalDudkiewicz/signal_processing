@@ -15,7 +15,7 @@ namespace cps {
         int nearestSampleIndex = 0;
         for (const auto& x2 : mSignalData.x)
         {
-            if (x >= x2 - step/2 && x < x2 + step/2)
+            if (x >= x2 - step/2 - 0.00001 && x < x2 + step/2)
             {
                 nearestSampleIndex = indexCounter;
                 break;
