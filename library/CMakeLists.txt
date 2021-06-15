@@ -29,6 +29,9 @@ add_library(library
         include/window.hpp
         src/rectangular_window.cpp
         src/hamming_window.cpp
+        src/filter.cpp
+        src/low_pass_filter.cpp
+        src/high_pass_filter.cpp
         )
 
 target_include_directories(library PUBLIC include)
