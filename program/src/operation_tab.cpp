@@ -1,3 +1,4 @@
+#include <iostream>
 #include "operation_tab.hpp"
 #include "ui_operation_tab.h"
 #include "result_signal_dialog.hpp"
@@ -11,7 +12,8 @@ OperationTab::OperationTab(QWidget *parent) :
             "+",
             "-",
             ":",
-            "*"
+            "*",
+            "conv"
     };
     for (const auto& operation : possibleOperations)
     {
@@ -44,6 +46,10 @@ void OperationTab::on_operateButton_clicked()
     else if (operation == ":")
     {
         resultSignal = *signalLeft / *signalRight;
+    }
+    else if (operation == "conv")
+    {
+        resultSignal = (*signalLeft).convolute(*signalRight);
     }
     ResultSignalDialog dialog;
     dialog.setSignal(resultSignal);

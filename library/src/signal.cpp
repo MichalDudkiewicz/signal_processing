@@ -168,6 +168,45 @@ namespace cps {
         throw std::runtime_error("incorrect signals divided");
     }
 
+    std::shared_ptr<CustomSignal> Signal::convolute(Signal& signal)
+    {
+        if (signal.mSamplingFrequency == mSamplingFrequency)
+        {
+            SignalData newData;
+            const auto h = data();
+            const auto x = signal.data();
+            double amplitude = 0;
+            const double initialTime = std::min(mInitialTimeSec, signal.initialTime());
+            const double endTime = std::max(mInitialTimeSec + mDurationSec, signal.initialTime() + signal.duration());
+            const double duration = endTime - initialTime;
+            const int M = h.x.size();
+            const int N = x.x.size();
+            const int numberOfSamples = M + N - 1;
+            const double deltaX = h.x[1] - h.x[0];
+            double currentX = initialTime;
+            for (int i = 0; i < numberOfSamples; i++)
+            {
+                newData.x.push_back(currentX);
+
+                double sum = 0.0;
+                int startK = std::max(0, i - N + 1);
+                int endK = std::min(M, i + 1);
+                for (unsigned long k = startK; k < endK; k++) {
+                    sum += h.y[k] * x.y[i - k];
+                }
+                newData.y.push_back(sum);
+
+                if (fabs(newData.y[i]) > amplitude)
+                {
+                    amplitude = fabs(newData.y[i]);
+                }
+                currentX += deltaX;
+            }
+            return std::make_shared<CustomSignal>(amplitude, initialTime, duration, newData);
+        }
+        throw std::runtime_error("incorrect signals correlated");
+    }
+
     void Signal::serialize(std::ostream &stream) {
         stream.write(reinterpret_cast<const char*>(&mInitialTimeSec), sizeof mInitialTimeSec);
         stream.write(reinterpret_cast<const char*>(&mSamplingFrequency), sizeof mSamplingFrequency);

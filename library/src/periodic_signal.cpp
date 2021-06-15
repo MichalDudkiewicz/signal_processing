@@ -8,7 +8,7 @@ namespace cps {
     }
 
     PeriodicSignal::PeriodicSignal(double amplitude, double initialTimeSec, double durationSec, double periodSec)
-    : Signal(amplitude, initialTimeSec, floor(initialTimeSec + durationSec / periodSec) * periodSec), mPeriod(periodSec)
+    : Signal(amplitude, initialTimeSec, floor(durationSec / periodSec) * periodSec), mPeriod(periodSec)
     {
     }
 }
