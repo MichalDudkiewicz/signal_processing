@@ -26,6 +26,9 @@ add_library(library
         src/signal_similarity_measures.cpp
         src/quantized_signal.cpp
         src/extrapolated_signal.cpp
+        include/window.hpp
+        src/rectangular_window.cpp
+        src/hamming_window.cpp
         )
 
 target_include_directories(library PUBLIC include)
