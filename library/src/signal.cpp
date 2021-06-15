@@ -204,7 +204,7 @@ namespace cps {
             }
             return std::make_shared<CustomSignal>(amplitude, initialTime, duration, newData);
         }
-        throw std::runtime_error("incorrect signals correlated");
+        throw std::runtime_error("incorrect signals convoluted");
     }
 
     void Signal::serialize(std::ostream &stream) {
@@ -307,5 +307,47 @@ namespace cps {
 
     int Signal::samplingFrequency() const {
         return mSamplingFrequency;
+    }
+
+    std::shared_ptr<CustomSignal> Signal::correlate(Signal &signal) {
+        if (signal.mSamplingFrequency == mSamplingFrequency)
+        {
+            SignalData newData;
+            const auto h = data();
+            const auto x = signal.data();
+            double amplitude = 0;
+            const double initialTime = std::min(mInitialTimeSec, signal.initialTime());
+            const double endTime = std::max(mInitialTimeSec + mDurationSec, signal.initialTime() + signal.duration());
+            const double duration = endTime - initialTime;
+            const int M = h.x.size();
+            const int N = x.x.size();
+            const int numberOfSamples = M + N - 1;
+            const double deltaX = h.x[1] - h.x[0];
+            double currentX = initialTime;
+            for (int i = 0; i < numberOfSamples; i++)
+            {
+                newData.x.push_back(currentX);
+
+                double sum = 0.0;
+
+                /* translate to real indexes */
+                int n  = i - (N - 1);
+
+                int startK = std::max(0, n);
+                int endK = std::min(M, N + n);
+                for (unsigned long k = startK; k < endK; k++) {
+                    sum += h.y[k] * x.y[k - n];
+                }
+                newData.y.push_back(sum);
+
+                if (fabs(newData.y[i]) > amplitude)
+                {
+                    amplitude = fabs(newData.y[i]);
+                }
+                currentX += deltaX;
+            }
+            return std::make_shared<CustomSignal>(amplitude, initialTime, duration, newData);
+        }
+        throw std::runtime_error("incorrect signals correlated");
     }
 }

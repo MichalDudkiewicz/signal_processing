@@ -61,6 +61,8 @@ namespace cps
 
         std::shared_ptr<CustomSignal> convolute(Signal& signal);
 
+        std::shared_ptr<CustomSignal> correlate(Signal& signal);
+
         void serialize(std::ostream &stream);
 
         std::string stringProperties();
@@ -75,7 +77,7 @@ namespace cps
         double mAmplitude;
         double mInitialTimeSec;
         double mDurationSec;
-        int mSamplingFrequency = 1000;
+        int mSamplingFrequency = 100;
     };
 }
 

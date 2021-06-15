@@ -13,7 +13,8 @@ OperationTab::OperationTab(QWidget *parent) :
             "-",
             ":",
             "*",
-            "conv"
+            "conv",
+            "corr"
     };
     for (const auto& operation : possibleOperations)
     {
@@ -50,6 +51,10 @@ void OperationTab::on_operateButton_clicked()
     else if (operation == "conv")
     {
         resultSignal = (*signalLeft).convolute(*signalRight);
+    }
+    else if (operation == "corr")
+    {
+        resultSignal = (*signalLeft).correlate(*signalRight);
     }
     ResultSignalDialog dialog;
     dialog.setSignal(resultSignal);
