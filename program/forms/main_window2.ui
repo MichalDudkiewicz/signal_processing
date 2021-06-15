@@ -18,7 +18,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="SamplingTab" name="samplingTab">
        <attribute name="title">
@@ -28,6 +28,11 @@
       <widget class="OperationTab" name="operationTab">
        <attribute name="title">
         <string>operation</string>
+       </attribute>
+      </widget>
+      <widget class="FilteringTab" name="filteringTab">
+       <attribute name="title">
+        <string>filtering</string>
        </attribute>
       </widget>
      </widget>
@@ -46,6 +51,12 @@
    <class>OperationTab</class>
    <extends>QWidget</extends>
    <header>operation_tab.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>FilteringTab</class>
+   <extends>QWidget</extends>
+   <header>filtering_tab.hpp</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -25,6 +25,8 @@ add_executable(${PROJECT_NAME}
         include/sampling_tab.hpp
         src/operation_tab.cpp
         include/operation_tab.hpp
+        src/filtering_tab.cpp
+        include/filtering_tab.hpp
         )
 
 if (NOT CMAKE_PREFIX_PATH)
