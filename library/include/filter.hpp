@@ -14,7 +14,7 @@ namespace cps {
         Filter(int M, double fo, std::shared_ptr<Window> window = std::make_shared<RectangularWindow>());
 
     public:
-        virtual std::shared_ptr<CustomSignal> filter(const std::shared_ptr<Signal>& signalToFilter) const = 0;
+        virtual std::shared_ptr<CustomSignal> filter(const std::shared_ptr<Signal>& signalToFilter) = 0;
 
     protected:
         int mM;

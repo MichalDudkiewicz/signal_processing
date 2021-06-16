@@ -9,7 +9,7 @@ namespace cps {
         LowPassFilter(int M, double fo, std::shared_ptr<Window> window);
 
     public:
-        std::shared_ptr<CustomSignal> filter(const std::shared_ptr<Signal> &signalToFilter) const override;
+        std::shared_ptr<CustomSignal> filter(const std::shared_ptr<Signal> &signalToFilter) override;
 
     protected:
         virtual int s(int n) const;

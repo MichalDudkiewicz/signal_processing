@@ -2,6 +2,7 @@
 #include "custom_signal.hpp"
 #include <utility>
 #include <cmath>
+#include "high_pass_filter.hpp"
 
 namespace cps {
 
@@ -9,8 +10,14 @@ namespace cps {
 
     }
 
-    std::shared_ptr<CustomSignal> LowPassFilter::filter(const std::shared_ptr<Signal> &signalToFilter) const {
+    std::shared_ptr<CustomSignal> LowPassFilter::filter(const std::shared_ptr<Signal> &signalToFilter) {
         const int sampleFreq = signalToFilter->samplingFrequency();
+
+//        if (dynamic_cast<HighPassFilter*>(this))
+//        {
+//            mFo = ((double)sampleFreq)/2 - mFo;
+//        }
+
         const double initialTime = signalToFilter->initialTime();
         const double K = sampleFreq / mFo;
         SignalData newData;
