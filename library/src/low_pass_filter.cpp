@@ -37,11 +37,11 @@ namespace cps {
 
             result *= s(i);
 
+            newData.y.push_back(result);
             if (fabs(newData.y[i]) > amplitude)
             {
                 amplitude = fabs(newData.y[i]);
             }
-            newData.y.push_back(result);
         }
 
         return std::make_shared<CustomSignal>(amplitude, initialTime, duration, newData);
