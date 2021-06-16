@@ -66,11 +66,10 @@ void FilteringTab::on_filterButton_clicked()
 
     const auto activeSignal = ui->signalWidget->signal();
     const auto filterSignal = filter->filter(activeSignal);
-    filterSignal->setSamplingFrequency(activeSignal->samplingFrequency());
-    const auto resultSignal = activeSignal->convolute(*filterSignal);
+    const auto resultSignal = filterSignal->convolute(*activeSignal);
 
     ResultSignalDialog dialog;
-    dialog.setSignal(filterSignal);
+    dialog.setSignal(resultSignal);
     dialog.setModal(true);
     dialog.exec();
 }

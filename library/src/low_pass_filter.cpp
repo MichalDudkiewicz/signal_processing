@@ -10,21 +10,24 @@ namespace cps {
     }
 
     std::shared_ptr<CustomSignal> LowPassFilter::filter(const std::shared_ptr<Signal> &signalToFilter) const {
-        const double sampleFreq = signalToFilter->samplingFrequency();
+        const int sampleFreq = signalToFilter->samplingFrequency();
         const double initialTime = signalToFilter->initialTime();
-        const double duration = signalToFilter->duration();
         const double K = sampleFreq / mFo;
         SignalData newData;
         const auto data = signalToFilter->data();
-        const int numberOfSamples = data.x.size();
+        const int numberOfSamples = mM;
 
         int c = (mM - 1) / 2; /* center sample */
 
         double amplitude = 0;
 
+        const double deltaX = data.x[1] - data.x[0];
+        double x = 0;
+        const double duration = (mM - 1) * deltaX;
+
         for (int i = 0; i < numberOfSamples; i++)
         {
-            newData.x.push_back(data.x[i]);
+            newData.x.push_back(x);
 
             double result;
             if (i == c) {
@@ -42,9 +45,11 @@ namespace cps {
             {
                 amplitude = fabs(newData.y[i]);
             }
+            x += deltaX;
         }
-
-        return std::make_shared<CustomSignal>(amplitude, initialTime, duration, newData);
+        auto newSignal = std::make_shared<CustomSignal>(amplitude, initialTime, duration, newData);
+        newSignal->setSamplingFrequency(sampleFreq);
+        return newSignal;
     }
 
     int LowPassFilter::s(int n) const {
