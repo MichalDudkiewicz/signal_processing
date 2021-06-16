@@ -236,13 +236,13 @@ void SignalDisplayWidget::on_createButton_clicked()
         in.open(fileName.toStdString(), std::ios::in | std::ios::binary);
         auto customSignal = std::make_shared<cps::CustomSignal>();
         customSignal->unserialize(in);
+        const auto data = customSignal->data().x.back();
         mSignalStored = std::move(customSignal);
         in.close();
         ui->amplitudeTextEdit->setText(QString::number(mSignalStored->amplitude()));
         ui->initialTimeTextEdit->setText(QString::number(mSignalStored->initialTime()));
         ui->durationTextEdit->setText(QString::number(mSignalStored->duration()));
-        const unsigned int samplingFrequency = ui->samplingFreqTextEdit->toPlainText().toUInt();
-        mSignalStored->setSamplingFrequency(samplingFrequency);
+        ui->samplingFreqTextEdit->setText(QString::number(mSignalStored->samplingFrequency()));
         plotSignal(*mSignalStored, text);
     }
     else if (text == "gaussian noise")

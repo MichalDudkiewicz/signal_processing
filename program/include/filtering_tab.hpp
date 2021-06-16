@@ -18,6 +18,9 @@ public:
 
 private:
     Ui::FilteringTab *ui;
+
+private slots:
+    void on_filterButton_clicked();
 };
 
 

@@ -2,6 +2,7 @@
 #include "signal_sampler.hpp"
 #include <cmath>
 #include <sstream>
+#include <iostream>
 #include "custom_signal.hpp"
 #include "utils.hpp"
 
@@ -97,7 +98,9 @@ namespace cps {
                     amplitude = fabs(newData.y[i]);
                 }
             }
-            return std::make_shared<CustomSignal>(amplitude, mInitialTimeSec, mDurationSec, newData);
+            auto newSignal = std::make_shared<CustomSignal>(amplitude, mInitialTimeSec, mDurationSec, newData);
+            newSignal->setSamplingFrequency(mSamplingFrequency);
+            return newSignal;
         }
         throw std::runtime_error("incorrect signals multiplied");
     }
@@ -119,7 +122,9 @@ namespace cps {
                     amplitude = fabs(newData.y[i]);
                 }
             }
-            return std::make_shared<CustomSignal>(amplitude, mInitialTimeSec, mDurationSec, newData);
+            auto newSignal = std::make_shared<CustomSignal>(amplitude, mInitialTimeSec, mDurationSec, newData);
+            newSignal->setSamplingFrequency(mSamplingFrequency);
+            return newSignal;
         }
         throw std::runtime_error("incorrect signals substracted");
     }
@@ -141,7 +146,9 @@ namespace cps {
                     amplitude = fabs(newData.y[i]);
                 }
             }
-            return std::make_shared<CustomSignal>(amplitude, mInitialTimeSec, mDurationSec, newData);
+            auto newSignal = std::make_shared<CustomSignal>(amplitude, mInitialTimeSec, mDurationSec, newData);
+            newSignal->setSamplingFrequency(mSamplingFrequency);
+            return newSignal;
         }
         throw std::runtime_error("incorrect signals added");
     }
@@ -163,7 +170,9 @@ namespace cps {
                     amplitude = fabs(newData.y[i]);
                 }
             }
-            return std::make_shared<CustomSignal>(amplitude, mInitialTimeSec, mDurationSec, newData);
+            auto newSignal = std::make_shared<CustomSignal>(amplitude, mInitialTimeSec, mDurationSec, newData);
+            newSignal->setSamplingFrequency(mSamplingFrequency);
+            return newSignal;
         }
         throw std::runtime_error("incorrect signals divided");
     }
@@ -202,7 +211,9 @@ namespace cps {
                 }
                 currentX += deltaX;
             }
-            return std::make_shared<CustomSignal>(amplitude, initialTime, duration, newData);
+            auto newSignal = std::make_shared<CustomSignal>(amplitude, initialTime, duration, newData);
+            newSignal->setSamplingFrequency(mSamplingFrequency);
+            return newSignal;
         }
         throw std::runtime_error("incorrect signals convoluted");
     }
@@ -346,7 +357,9 @@ namespace cps {
                 }
                 currentX += deltaX;
             }
-            return std::make_shared<CustomSignal>(amplitude, initialTime, duration, newData);
+            auto newSignal = std::make_shared<CustomSignal>(amplitude, initialTime, duration, newData);
+            newSignal->setSamplingFrequency(mSamplingFrequency);
+            return newSignal;
         }
         throw std::runtime_error("incorrect signals correlated");
     }
