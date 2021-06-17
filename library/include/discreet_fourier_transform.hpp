@@ -3,16 +3,12 @@
 
 #include <vector>
 #include "signal_sampler.hpp"
-
-/*
- * First part is realis, second is imaginaris
- */
-using ComplexNumber = std::pair<double, double>;
+#include <complex>
 
 namespace cps {
     struct TransformationResult
     {
-        std::vector<ComplexNumber> result;
+        std::vector<std::complex<double>> result;
         double f0;
     };
 
