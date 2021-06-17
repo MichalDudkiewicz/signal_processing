@@ -2,7 +2,8 @@
 #define SIGNAL_PROCESSING_DFT_TAB_HPP
 
 #include <QWidget>
-
+#include "signal.hpp"
+#include <memory>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class DftTab; }
@@ -18,6 +19,12 @@ public:
 
 private:
     Ui::DftTab *ui;
+
+private slots:
+    void on_createButton_clicked();
+
+private:
+    std::shared_ptr<cps::Signal> mSignalStored;
 };
 
 
