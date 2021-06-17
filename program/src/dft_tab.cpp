@@ -72,6 +72,9 @@ void DftTab::plotSignals() const
     const auto signalSampled = mSignalStored->data();
     const auto transformResult = DiscreetFourierTransform::transform(signalSampled);
 
+    QString yAxisText = "";
+    QString yAxis2Text = "";
+
     if (mode == "amplitude mode")
     {
         ComplexSignalData complexData = ComplexSignalsProcessor::processAmplitudeData(transformResult);
@@ -87,6 +90,9 @@ void DftTab::plotSignals() const
             series2->append(complexData.frequency[i], complexData.imaginValues[i]);
         }
         ui->lowerChart->chart()->addSeries(series2);
+
+        yAxisText = "realis A";
+        yAxis2Text = "imaginaris A";
     }
     else
     {
@@ -103,9 +109,13 @@ void DftTab::plotSignals() const
             series2->append(complexData.frequency[i], complexData.imaginValues[i]);
         }
         ui->lowerChart->chart()->addSeries(series2);
+
+        yAxisText = "|z|";
+        yAxis2Text = "arg z";
     }
     const auto& axisX = ui->upperChart->chart()->axisX();
     const auto& axisY = ui->upperChart->chart()->axisY();
+    axisY->setTitleText(yAxisText);
     axisX->setRange(0, mSignalStored->samplingFrequency());
 
     double min = series->points().first().y();
@@ -131,6 +141,7 @@ void DftTab::plotSignals() const
     const auto& axisX2 = ui->lowerChart->chart()->axisX();
     const auto& axisY2 = ui->lowerChart->chart()->axisY();
     axisX2->setRange(0, mSignalStored->samplingFrequency());
+    axisY2->setTitleText(yAxis2Text);
 
     double min2 = series2->points().first().y();
     double max2 = series2->points().first().y();
