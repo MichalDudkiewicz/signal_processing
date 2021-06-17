@@ -17,15 +17,19 @@
    <item row="0" column="0">
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QComboBox" name="signalComboBox"/>
-     </item>
-     <item>
       <widget class="QComboBox" name="displayComboBox"/>
      </item>
      <item>
       <widget class="QPushButton" name="createButton">
        <property name="text">
-        <string>create</string>
+        <string>create complex signal from real</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="loadButton">
+       <property name="text">
+        <string>load complex signal</string>
        </property>
       </widget>
      </item>
@@ -40,7 +44,7 @@
    <item row="1" column="0">
     <widget class="QPushButton" name="saveButton">
      <property name="text">
-      <string>save</string>
+      <string>save complex signal</string>
      </property>
     </widget>
    </item>
