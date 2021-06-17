@@ -32,6 +32,8 @@ add_library(library
         src/filter.cpp
         src/low_pass_filter.cpp
         src/high_pass_filter.cpp
+        src/discreet_fourier_transform.cpp
+        src/complex_signals_processor.cpp
         )
 
 target_include_directories(library PUBLIC include)
