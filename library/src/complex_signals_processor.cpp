@@ -1,5 +1,7 @@
 #include "complex_signals_processor.hpp"
 #include <cmath>
+#include <stdexcept>
+#include <iostream>
 
 namespace cps {
 
@@ -35,6 +37,10 @@ namespace cps {
             const double real = result.result[m].first;
             const double imag = result.result[m].second;
             complexSignalData.realValues.push_back(sqrt(pow(real, 2) + pow(imag, 2)));
+            if (real == 0)
+            {
+                throw std::runtime_error("error");
+            }
             complexSignalData.imaginValues.push_back(atan(imag/real));
         }
 

@@ -18,10 +18,14 @@ public:
     ~DftTab() override;
 
 private:
+    void plotSignals() const;
+
+private:
     Ui::DftTab *ui;
 
 private slots:
     void on_createButton_clicked();
+    void on_displayComboBox_currentTextChanged(const QString &text);
 
 private:
     std::shared_ptr<cps::Signal> mSignalStored;

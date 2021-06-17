@@ -35,6 +35,8 @@ DftTab::DftTab(QWidget *parent) :
     axisY2->setTitleText("A");
     ui->lowerChart->chart()->addAxis(axisY2, Qt::AlignLeft);
 
+    axisX->setMinorTickCount(7);
+    axisX2->setMinorTickCount(7);
 }
 
 DftTab::~DftTab() {
@@ -43,9 +45,6 @@ DftTab::~DftTab() {
 
 void DftTab::on_createButton_clicked()
 {
-    ui->upperChart->chart()->removeAllSeries();
-    ui->lowerChart->chart()->removeAllSeries();
-
     QDir dataDir("../../program/data");
     QString fileName = QFileDialog::getOpenFileName(
             this, "open", dataDir.absolutePath(), tr("All files (*.bin)"));
@@ -57,6 +56,14 @@ void DftTab::on_createButton_clicked()
     const auto data = customSignal->data().x.back();
     mSignalStored = std::move(customSignal);
     in.close();
+
+    plotSignals();
+}
+
+void DftTab::plotSignals() const
+{
+    ui->upperChart->chart()->removeAllSeries();
+    ui->lowerChart->chart()->removeAllSeries();
 
     const auto mode = ui->displayComboBox->currentText();
 
@@ -83,7 +90,19 @@ void DftTab::on_createButton_clicked()
     }
     else
     {
+        ComplexSignalData complexData = ComplexSignalsProcessor::processComplexFactorsData(transformResult);
 
+        for (int i = 0; i < complexData.frequency.size(); i++)
+        {
+            series->append(complexData.frequency[i], complexData.realValues[i]);
+        }
+        ui->upperChart->chart()->addSeries(series);
+
+        for (int i = 0; i < complexData.frequency.size(); i++)
+        {
+            series2->append(complexData.frequency[i], complexData.imaginValues[i]);
+        }
+        ui->lowerChart->chart()->addSeries(series2);
     }
     const auto& axisX = ui->upperChart->chart()->axisX();
     const auto& axisY = ui->upperChart->chart()->axisY();
@@ -133,4 +152,12 @@ void DftTab::on_createButton_clicked()
     series2->attachAxis(axisY2);
     ui->lowerChart->chart()->legend()->setVisible(false);
 }
+void DftTab::on_displayComboBox_currentTextChanged(const QString &text)
+{
+    if (mSignalStored)
+    {
+        plotSignals();
+    }
+}
+
 
